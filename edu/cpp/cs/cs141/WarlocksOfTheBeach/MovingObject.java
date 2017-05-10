@@ -1,3 +1,4 @@
+package edu.cpp.cs.cs141.WarlocksOfTheBeach;
 
 //Daniel 
 public class MovingObject {

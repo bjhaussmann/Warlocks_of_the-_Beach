@@ -1,4 +1,4 @@
-package edu.cpp.cs.cs141.incharge_ninja;
+package edu.cpp.cs.cs141.WarlocksOfTheBeach;
 
 /**
  * @author edgarchilin  

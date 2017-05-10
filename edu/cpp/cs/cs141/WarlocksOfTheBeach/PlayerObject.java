@@ -1,7 +1,7 @@
 /**
  * 
  */
-package edu.cpp.cs.cs141;
+package edu.cpp.cs.cs141.WarlocksOfTheBeach;
 
 /**
  * @author Cesar
