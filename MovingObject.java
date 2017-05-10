@@ -1,5 +1,5 @@
 
-
+//Daniel 
 public class MovingObject {
 
 	private int pXPosition;
