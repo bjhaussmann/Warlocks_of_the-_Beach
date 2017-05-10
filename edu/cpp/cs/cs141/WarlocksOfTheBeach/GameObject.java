@@ -1,4 +1,5 @@
 package edu.cpp.cs.cs141.WarlocksOfTheBeach;
+
 /**
  * 
  */
@@ -9,7 +10,7 @@ package edu.cpp.cs.cs141.WarlocksOfTheBeach;
  */
 public class GameObject {
 
-	private String pName = "";
+	private String pName;
 	
 	
 	public String ReturnType () {
