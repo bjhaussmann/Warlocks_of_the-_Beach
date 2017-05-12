@@ -59,6 +59,11 @@ public class Player extends MovingObject {
 		return bullets;
 	}
 
+	//Reduce the number of bullets by one when the player shoots.
+	public void mShoot() {
+		bullets --;
+	}
+	
 	// Return the number of lives the player has left.
 	public int mGetLives() {
 		return lives;
