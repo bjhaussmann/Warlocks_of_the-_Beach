@@ -13,6 +13,6 @@ package edu.cpp.cs.cs141.WarlocksOfTheBeach;
  * @author Tom Landry
  *
  */
-public class Bullet extends GameSpaces {
+public class Bullet extends GameSpace {
 
 }

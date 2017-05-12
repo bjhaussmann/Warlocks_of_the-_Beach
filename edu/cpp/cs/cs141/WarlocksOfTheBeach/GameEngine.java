@@ -2,10 +2,12 @@ package edu.cpp.cs.cs141.WarlocksOfTheBeach;
 
 
 public class GameEngine {
-	UserInterface UI;
+	UserInterface UI = new UserInterface();
+	GameSpace pGameBoard[][] = new GameSpace[9][9];
 	
 	public void mStartGame()
 	{
+		UI = UserInterface.mCreateInterface(1);
 		mGenerateGameBoard();
 		mCoreGameLoop();
 	}
