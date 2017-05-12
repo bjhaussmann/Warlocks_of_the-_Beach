@@ -7,6 +7,6 @@ package edu.cpp.cs.cs141.WarlocksOfTheBeach;
  * @author bjhau
  *
  */
-public class Null extends GameObject {
+public class Null extends GameSpaces {
 
 }

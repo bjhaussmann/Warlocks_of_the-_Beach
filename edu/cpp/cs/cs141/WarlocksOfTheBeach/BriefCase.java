@@ -7,6 +7,6 @@ package edu.cpp.cs.cs141.WarlocksOfTheBeach;
  * @author bjhau
  *
  */
-public class BriefCase extends GameObject {
+public class BriefCase extends GameSpaces {
 
 }

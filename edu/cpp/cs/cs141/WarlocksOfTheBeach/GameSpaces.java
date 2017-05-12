@@ -8,7 +8,7 @@ package edu.cpp.cs.cs141.WarlocksOfTheBeach;
  * @author bjhau
  *
  */
-public class GameObject {
+public class GameSpaces {
 
 	private String pName;
 	

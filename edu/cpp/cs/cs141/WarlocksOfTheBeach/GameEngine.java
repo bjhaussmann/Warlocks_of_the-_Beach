@@ -2,11 +2,12 @@ package edu.cpp.cs.cs141.WarlocksOfTheBeach;
 
 
 public class GameEngine {
-
+	UserInterface UI;
 	
 	public void mStartGame()
 	{
-		
+		mGenerateGameBoard();
+		mCoreGameLoop();
 	}
 	
 	public void mGenerateGameBoard()
@@ -24,11 +25,16 @@ public class GameEngine {
 		
 	}
 	
-	public void CoreGameLoop()
+	public void mCoreGameLoop()
 	{
-		
+		mStartPhase();
 	}
 	
+	private void mStartPhase() {
+		
+		
+	}
+
 	public void mQuit()
 	{
 		

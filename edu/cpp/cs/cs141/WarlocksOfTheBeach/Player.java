@@ -7,7 +7,7 @@ package edu.cpp.cs.cs141.WarlocksOfTheBeach;
  * @author Cesar
  *
  */
-public class PlayerObject extends MovingObject {
+public class Player extends MovingObject {
 
 	private int bullets;
 	
@@ -19,7 +19,7 @@ public class PlayerObject extends MovingObject {
 	/**
 	 * 
 	 */
-	public PlayerObject() {
+	public Player() {
 		super();
 		bullets = 1;
 		lives = 3;
