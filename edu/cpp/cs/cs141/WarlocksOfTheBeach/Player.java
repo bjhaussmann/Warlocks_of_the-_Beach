@@ -63,6 +63,11 @@ public class Player extends MovingObject {
 	public int mGetLives() {
 		return lives;
 	}
+	
+	// Takes away one life from the player.
+	public void mDeath() {
+		lives --;
+	}
 
 	// Return how many turns of invincibility the player has left.
 	public int mGetInvincibility() {
