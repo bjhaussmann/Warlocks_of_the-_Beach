@@ -44,6 +44,26 @@ public class Player extends MovingObject {
 		}
 	}
 
+	// Set invincibility from a saved game
+	public void mSetInvincibility(int tInvincibility) {
+		pInvincibility = tInvincibility;
+	}
+	
+	// Set bullets from a saved game.
+	public void mSetBullets(int tBullets) {
+		pBullets = tBullets;
+	}
+	
+	// Set lives from a saved game.
+	public void mSetLives(int tLives) {
+		pLives = tLives;
+	}
+	
+	// Set radar from a saved game.
+	public void mSetRadar(boolean tRadar) {
+		pRadar = tRadar;
+	}
+	
 	// Called by the game engine every turn to count down the turns of invincibility left.
 	public void mCountInvicibility() {
 		pInvincibility --;
