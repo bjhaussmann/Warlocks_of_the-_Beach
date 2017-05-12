@@ -9,81 +9,78 @@ package edu.cpp.cs.cs141.WarlocksOfTheBeach;
  */
 /**
  * @author bjhau
- * Class to define the PLayer and all of its capabilities. Keeps track of Bullets, Lives, Invincibility,
- * and Radar. 
+ * Class to define the PLayer and all of its capabilities.
+ * Keeps track of Bullets, Lives, Invincibility, and Radar.
  */
 public class Player extends MovingObject {
 	// How many bullets the player has.
-	private int bullets;
+	private int pBullets;
+
+	//How many turns of invincibility the player has left.
+	private int pInvincibility;
 
 	//How many lives the player has.
-	private int lives;
-	
-	//How many turns of invincibility the player has left.
-	private int invincibility;
-	
+	private int pLives;
+
 	// Whether or not the player had radar capabilities.
-	private boolean radar;
-	
+	private boolean pRadar;
+
 	// Constructor for new Player instance.
 	public Player() {
 		super();
-		bullets = 1;
-		lives = 3;
-		invincibility = 0;
-		radar = false;
+		pBullets = 1;
+		pLives = 3;
+		pInvincibility = 0;
+		pRadar = false;
 	}
-	
+
 	//Check if the player currently has invincibility regardless of turns left.
 	public boolean mCheckInvincibility() {
-		if ( invincibility > 0 ) {
+		if ( pInvincibility > 0 ) {
 			return true;
 		}
 		else {
 			return false;
 		}
 	}
-	
+
 	// Called by the game engine every turn to count down the turns of invincibility left.
 	public void mCountInvicibility() {
-		invincibility --;
+		pInvincibility --;
 	}
-	
-	// If the player gets the invincibility pack, this sets the turns left to 5.
-	public void mSetInvincibility() {
-		invincibility = 5;
+
+	// Takes away one life from the player.
+	public void mDeath() {
+		pLives --;
 	}
 
 	// Return the number of bullets the player has left.
 	public int mGetBullets() {
-		return bullets;
-	}
-
-	//Reduce the number of bullets by one when the player shoots.
-	public void mShoot() {
-		bullets --;
-	}
-	
-	// Return the number of lives the player has left.
-	public int mGetLives() {
-		return lives;
-	}
-	
-	// Takes away one life from the player.
-	public void mDeath() {
-		lives --;
+		return pBullets;
 	}
 
 	// Return how many turns of invincibility the player has left.
 	public int mGetInvincibility() {
-		return invincibility;
+		return pInvincibility;
+	}
+
+	// Return the number of lives the player has left.
+	public int mGetLives() {
+		return pLives;
 	}
 
 	// Returns whether or not the player has Radar capabilities.
 	public boolean mIsRadar() {
-		return radar;
+		return pRadar;
 	}
-	
-	
 
+	// If the player gets the invincibility pack, this sets the turns left to 5.
+	public void mSetInvincibility() {
+		pInvincibility = 5;
+	}
+
+	//Reduce the number of bullets by one when the player shoots.
+	public void mShoot() {
+		pBullets --;
+	}
 }
