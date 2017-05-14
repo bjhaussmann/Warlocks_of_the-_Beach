@@ -15,9 +15,7 @@ public class GameEngine {
 	{
 		System.out.println("Debug Start");
 		UI = UserInterface.mCreateInterface(1);
-		//mSetGameBoard();
-		UI.mPrintBoard(mGenerateGameBoard());
-		UI.mPauseScript();
+		mCoreGameLoop();
 		System.out.println("Debug end");
 	}
 	
@@ -84,7 +82,7 @@ public class GameEngine {
 			System.out.println(tX);
 			System.out.println(tY);
 			
-			if (tGameBoard[tX][tY].equals(Null.class))
+			if (tGameBoard[tX][tY].getClass().equals(Null.class) )
 				{
 				tGameBoard[tX][tY] = new Bullet();
 				tVC = true;
@@ -106,7 +104,7 @@ public class GameEngine {
 			
 			System.out.println(tX + " " + tY);
 			
-			if (tGameBoard[tX][tY].equals(Null.class))
+			if (tGameBoard[tX][tY].getClass().equals(Null.class))
 				{
 				tGameBoard[tX][tY] = new Radar();
 				tVC = true;
@@ -124,7 +122,7 @@ public class GameEngine {
 			
 			System.out.println(tX + tY);
 			
-			if (tGameBoard[tX][tY].equals(Null.class))
+			if (tGameBoard[tX][tY].getClass().equals(Null.class))
 				{
 				tGameBoard[tX][tY] = new Invicibility();
 				tVC = true;
@@ -154,18 +152,69 @@ public class GameEngine {
 	
 	public void mCoreGameLoop()
 	{
-		mStartPhase();
+		boolean tEnd = false;
+		
+		do{
+			tEnd = mStartPhase();
+			
+			if (tEnd == false)
+			{
+				System.out.println("Ninja's moved");
+				mNMove();
+				tEnd = mCheckGameState();
+			}
+			
+		} while(tEnd == false);
+		
 	}
 	
-	private void mStartPhase() {
+	/**
+	 * @return
+	 */
+	private int mSelect() {
 		
-		
+		return UI.mTurnSelect();
 	}
 
-	public void mQuit()
-	{
+	private boolean mStartPhase() {
+		boolean tEnd =  false;
+		int tMove = 1;
+		do{
+			tMove = 1;
+			int tSelection = mSelect();
+				if (tSelection == 0)
+				{
+					mLook();
+					System.out.println("Look");
+				}
+				else if (tSelection == 1)
+					{
+					mShoot();
+					System.out.println("Shoot");
+					}
+				else if (tSelection == 2)
+					{
+					mPMove();
+					System.out.println("Move");
+					tMove--;
+					}
+				else if (tSelection == 3)
+					{
+					System.out.println("Quit");
+					tEnd = true;
+					}
+				else if (tSelection == 4)
+					{
+					System.out.println("Saved");
+					mSave();
+					}
+					
+		} while (tMove == 1 && tEnd == false);
 		
+		
+		return tEnd;
 	}
+
 	
 	public void mSave()
 	{
@@ -192,8 +241,9 @@ public class GameEngine {
 		
 	}
 	
-	public void mCheckGameState()
+	public boolean mCheckGameState()
 	{
+		return false;
 		
 	}
 	
