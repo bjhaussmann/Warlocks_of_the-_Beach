@@ -9,14 +9,13 @@ import org.omg.PortableServer.POA;
 
 /**
  * @author edgarchilin pliving mMove mCheckLinezOfSight mCheckKill
- *         mCheckInvincibility
- *
+ *         mCheckInvincibility fix set from saved games
  */
 public class Ninja extends MovingObject {
 
 	private static GameEngine ge;
 	private static Player po;
-	
+
 	private int mLiving;
 	private int mMove;
 	private boolean mCheckLinezOfSight;
@@ -28,16 +27,14 @@ public class Ninja extends MovingObject {
 
 		super();
 		mLiving = computeLife();
-		mMove = computeMovement(ge.pGameBoard);
-		mCheckLinezOfSight = findPlayer();
+		mMove = computeMovement();
+		mCheckLinezOfSight = findPlayer(ge.pGameBoard);
 		mCheckKill = computeKill();
 		mCheckInvicibility = computeInvincibility();
 		mState = checkStatus();
+
 	}
 
-	/**
-	 * @return
-	 */
 	private boolean checkStatus() {
 		if (mLiving == 1) {
 			return true;
@@ -50,28 +47,33 @@ public class Ninja extends MovingObject {
 		return 1;
 	}
 
-	private int computeMovement(GameSpace[][] pGameBoard) {
-		int chance= new Random().nextInt(3);
-		if (chance== 0){
-			moveUp();
-		}
-		else if(chance== 1){
-			moveDown();
-		}
-		else if(chance==2){
-			moveLeft();
-		}
-		if(chance==3){
-			moveRight();
-		}
+	private int computeMovement() {
+		// call moving object method to move ninja and move towards 
+		
 		return 0;
 	}
-
-	private static boolean findPlayer() {
-		return false;
+//still fixing 
+	private static boolean findPlayer(GameSpace[][] pGameBoard, Player p, Ninja n) {
+		if (pGameBoard[po.getpXPosition() + 1][po.getpYPosition()] == pGameBoard[n.getpXPosition()][n
+				.getpYPosition()]) {
+			return true;
+		} else if (pGameBoard[po.getpXPosition() - 1][po.getpYPosition()] == pGameBoard[n.getpXPosition()][n
+				.getpYPosition()]) {
+			return true;
+		} else if (pGameBoard[po.getpXPosition()][po.getpYPosition() + 1] == pGameBoard[n.getpXPosition()][n
+				.getpYPosition()]) {
+			return true;
+		}
+		if (pGameBoard[po.getpXPosition()][po.getpYPosition() + 1] == pGameBoard[n.getpXPosition()][n
+				.getpYPosition()]) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	private static boolean computeKill() {
+		//still fixing 
 		return false;
 	}
 
@@ -85,10 +87,12 @@ public class Ninja extends MovingObject {
 	public boolean getCheckInvicibility() {
 		return mCheckInvicibility;
 	}
-	public int enemyHealth(){
+
+	public int enemyHealth() {
 		return mLiving;
 	}
-	public boolean enemyStatus(){
+
+	public boolean enemyStatus() {
 		return mState;
 	}
 
