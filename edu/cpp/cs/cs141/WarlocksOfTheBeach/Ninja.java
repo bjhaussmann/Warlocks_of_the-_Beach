@@ -53,8 +53,8 @@ public class Ninja extends MovingObject {
 		return 0;
 	}
 //still fixing 
-	private static boolean findPlayer(GameSpace[][] pGameBoard, Player p, Ninja n) {
-		if (pGameBoard[po.getpXPosition() + 1][po.getpYPosition()] == pGameBoard[n.getpXPosition()][n
+	private static boolean findPlayer(GameSpace[][] pGameBoard) {
+		if (pGameBoard[po.getpXPosition() + 1][po.getpYPosition()] == pGameBoard[Ninja.getpXPosition()][n
 				.getpYPosition()]) {
 			return true;
 		} else if (pGameBoard[po.getpXPosition() - 1][po.getpYPosition()] == pGameBoard[n.getpXPosition()][n
