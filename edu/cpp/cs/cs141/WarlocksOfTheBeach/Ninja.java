@@ -13,7 +13,6 @@ import org.omg.PortableServer.POA;
  */
 public class Ninja extends MovingObject {
 
-	private static GameEngine ge;
 	private static Player po;
 
 	private int mLiving;
@@ -22,13 +21,13 @@ public class Ninja extends MovingObject {
 	private boolean mCheckKill;
 	private boolean mCheckInvicibility;
 	private boolean mState;
-
+	
 	public Ninja() {
 
 		super();
 		mLiving = computeLife();
 		mMove = computeMovement();
-		mCheckLinezOfSight = findPlayer(ge.pGameBoard);
+		mCheckLinezOfSight = findPlayer();
 		mCheckKill = computeKill();
 		mCheckInvicibility = computeInvincibility();
 		mState = checkStatus();
@@ -47,34 +46,41 @@ public class Ninja extends MovingObject {
 		return 1;
 	}
 
-	private int computeMovement() {
-		// call moving object method to move ninja and move towards 
-		
-		return 0;
+	private void computeMovement() {
+		int rand= new Random().nextInt(3);
+		Ninja.mMove(rand);
+	
 	}
-//still fixing 
-	private static boolean findPlayer(GameSpace[][] pGameBoard) {
-		if (pGameBoard[po.getpXPosition() + 1][po.getpYPosition()] == pGameBoard[Ninja.getpXPosition()][n
-				.getpYPosition()]) {
-			return true;
-		} else if (pGameBoard[po.getpXPosition() - 1][po.getpYPosition()] == pGameBoard[n.getpXPosition()][n
-				.getpYPosition()]) {
-			return true;
-		} else if (pGameBoard[po.getpXPosition()][po.getpYPosition() + 1] == pGameBoard[n.getpXPosition()][n
-				.getpYPosition()]) {
-			return true;
-		}
-		if (pGameBoard[po.getpXPosition()][po.getpYPosition() + 1] == pGameBoard[n.getpXPosition()][n
-				.getpYPosition()]) {
-			return true;
-		} else {
-			return false;
-		}
+
+	// still fixing
+	private static boolean findPlayer() {
+
+		return true;
+		// if (pGameBoard[po.getpXPosition() + 1][po.getpYPosition()] ==
+		// pGameBoard[Ninja.getpXPosition()][n
+		// .getpYPosition()]) {
+		// return true;
+		// } else if (pGameBoard[po.getpXPosition() - 1][po.getpYPosition()] ==
+		// pGameBoard[n.getpXPosition()][n
+		// .getpYPosition()]) {
+		// return true;
+		// } else if (pGameBoard[po.getpXPosition()][po.getpYPosition() + 1] ==
+		// pGameBoard[n.getpXPosition()][n
+		// .getpYPosition()]) {
+		// return true;
+		// }
+		// if (pGameBoard[po.getpXPosition()][po.getpYPosition() + 1] ==
+		// pGameBoard[n.getpXPosition()][n
+		// .getpYPosition()]) {
+		// return true;
+		// } else {
+		// return false;
+		// }
 	}
 
 	private static boolean computeKill() {
-		//still fixing 
-		return false;
+		return true;
+		
 	}
 
 	private static boolean computeInvincibility() {
@@ -94,6 +100,25 @@ public class Ninja extends MovingObject {
 
 	public boolean enemyStatus() {
 		return mState;
+	}
+
+	
+	public boolean position(int playerPO){
+		if(playerPO +1 == ){
+			return true;
+		}
+		else if(playerPO-1== ){
+				return true;
+		}
+		else if(playerPO+9 ==  ){
+			return true;
+		}
+		else if(playerPO-9==  ) {
+				return true;
+		}
+		else {
+			return computeKill();
+		}
 	}
 
 }
