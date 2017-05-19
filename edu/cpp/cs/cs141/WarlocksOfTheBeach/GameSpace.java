@@ -9,9 +9,9 @@ public class GameSpace {
 
 	final private String pName;
 	
-	private int pXPosition;
-	
-	private int pYPosition;
+//	private int pXPosition;
+//	
+//	private int pYPosition;
 	
 	public GameSpace(String tName) {
 		this.pName = tName;
@@ -21,16 +21,16 @@ public class GameSpace {
 		return pName;
 	}
 	
-	public void setXPosition(int tXPosition) {
-		this.pXPosition = tXPosition;
-	}
-	
-	public void setYPosition(int tYPosition) {
-		this.pYPosition = tYPosition;
-	}
-	
-	public int getPosition() {
-		int tPosition = ((this.pYPosition * 9) + this.pXPosition);
-		return tPosition;
-	}
+//	public void setXPosition(int tXPosition) {
+//		this.pXPosition = tXPosition;
+//	}
+//	
+//	public void setYPosition(int tYPosition) {
+//		this.pYPosition = tYPosition;
+//	}
+//	
+//	public int getPosition() {
+//		int tPosition = ((this.pYPosition * 9) + this.pXPosition);
+//		return tPosition;
+//	}
 }
