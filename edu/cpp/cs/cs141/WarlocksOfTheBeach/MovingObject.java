@@ -6,7 +6,7 @@ package edu.cpp.cs.cs141.WarlocksOfTheBeach;
  * Has fields for x and y position and methods to return those values. Has a
  * move method to change the x and y position based on the integer argument
  * given. Checks if Positions are near the edge before moving
- *  fdsa
+ *
  * @author Cesar
  *
  */
@@ -16,8 +16,8 @@ public class MovingObject {
 
 	private int pYPosition;
 
-	//test
-	
+	// test
+
 	public MovingObject(int tXPosition, int tYPosition) {
 		this.pXPosition = tXPosition;
 		this.pYPosition = tYPosition;
@@ -44,6 +44,11 @@ public class MovingObject {
 
 		return tResult;
 	}
+	
+	public int getPosition() {
+		int tPosition = ((this.pYPosition * 9) + this.pXPosition);
+		return tPosition;
+	}
 
 	public int mGetXPosition() {
 		return pXPosition;
@@ -52,11 +57,11 @@ public class MovingObject {
 	public int mGetYPosition() {
 		return pYPosition;
 	}
-	
+
 	public void mSetXPosition(int tXPosition) {
 		pXPosition = tXPosition;
 	}
-	
+
 	public void mSetYPosition(int tYPosition) {
 		pYPosition = tYPosition;
 	}
