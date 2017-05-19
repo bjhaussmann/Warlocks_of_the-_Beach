@@ -15,26 +15,25 @@ public class Ninja extends MovingObject {
 
 	private static Player po;
 
-	private int mLiving;
-	private int mMove;
-	private boolean mCheckLinezOfSight;
-	private int mCheckKill;
-	private boolean mCheckInvicibility;
-	private boolean mState;
+	private int pLiving;
+	private int pMove;
+	private int pCheckLinezOfSight;
+	private int pCheckKill;
+	private boolean pCheckInvicibility;
+	private boolean pState;
 
 	public Ninja() {
 		super();
-		mLiving = computeLife();
-		mMove = computeMovement();
-		mCheckLinezOfSight = findPlayer(mCheckLinezOfSight);
-		mCheckKill = computeKill();
-		mCheckInvicibility = computeInvincibility();
-		mState = checkStatus();
-
+		pLiving = computeLife();
+		pMove = computeMovement();
+		pCheckLinezOfSight = mFindPosition(pCheckLinezOfSight);
+		pCheckKill = computeKill();
+		pCheckInvicibility = computeInvincibility();
+		pState = checkStatus();
 	}
 
 	private boolean checkStatus() {
-		if (mLiving == 1) {
+		if (pLiving == 1) {
 			return true;
 		} else {
 			return false;
@@ -46,20 +45,20 @@ public class Ninja extends MovingObject {
 	}
 
 	private int computeMovement() {
+		if(super.mGetXPosition() != 1  && super.mGetYPosition() != 4 ) 
+			if( super.mGetXPosition() != && super.mGetYPosition() != )
+				if( super.mGetXPosition() != && super.mGetYPosition() != )
+				if ( super.mGetXPosition() != && super.mGetYPosition() != )	
+				if ( super.mGetXPosition() != && super.mGetYPosition() != )	
+					
 		int rand = new Random().nextInt(3);
 		return super.mMove(rand);
 		
 	}
 
-	private boolean findPlayer(boolean mCheck) {
-		if (mCheck == true) {
-			return true;
-		} else
-			return false;
-	}
 	private int computeKill() {
-		int lifes=0;
-		if(mCheckLinezOfSight== true){
+		int lifes = 0;
+		if (pCheckLinezOfSight == (1 | 2 | 3 | 4) ) {
 			lifes++;
 		}
 		return lifes;
@@ -70,40 +69,46 @@ public class Ninja extends MovingObject {
 		if (po.mCheckInvincibility() == true) {
 			return true;
 		} else
+
 			return false;
 	}
 
-	public boolean getCheckInvicibility() {
-		return mCheckInvicibility;
+	public boolean mCheckInvicibility() {
+		return pCheckInvicibility;
 	}
 
-	public int getEnemyHealth() {
-		return mLiving;
+	public int mEnemyHealth() {
+		return pLiving;
 	}
 
-	public boolean getEnemyStatus() {
-		return mState;
-	}
-	public int getMovement(){
-		return mMove;
-	}
-	
-	public int getmCheckKill() {
-		return mCheckKill;
+	public boolean mEnemyStatus() {
+		return pState;
 	}
 
-	public boolean position(int playerPO) {
+	public int mMovement() {
+		return pMove;
+	}
+
+	public int mCheckKill() {
+		return pCheckKill;
+	}
+
+	public int mFindPosition(int playerPO) {
 		if (playerPO + 1 == super.mGetXPosition() % 9) {
-			return findPlayer(true);
+			pCheckLinezOfSight= 1;
+			return pCheckLinezOfSight;
 		} else if (playerPO - 1 == super.mGetXPosition() % 9) {
-			return findPlayer(true);
+			pCheckLinezOfSight= 2;
+			return pCheckLinezOfSight;
 		} else if (playerPO + 9 == super.mGetYPosition() * 9) {
-			return findPlayer(true);
-		} else if (playerPO - 9 == super.mGetYPosition()* 9) {
-			return findPlayer(true);
+			pCheckLinezOfSight= 3;
+			return pCheckLinezOfSight;
+		} else if (playerPO - 9 == super.mGetYPosition() * 9) {
+			pCheckLinezOfSight= 4;
+			 return pCheckLinezOfSight;
 		} else {
-			return false;
+			pCheckLinezOfSight= -1;
+			return pCheckLinezOfSight;
 		}
 	}
-
 }
