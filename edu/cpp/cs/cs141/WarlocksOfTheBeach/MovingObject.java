@@ -45,7 +45,7 @@ public class MovingObject {
 		return tResult;
 	}
 	
-	public int getPosition() {
+	public int mGetPosition() {
 		int tPosition = ((this.pYPosition * 9) + this.pXPosition);
 		return tPosition;
 	}
