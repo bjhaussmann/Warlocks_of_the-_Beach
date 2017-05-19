@@ -18,7 +18,7 @@ public class Ninja extends MovingObject {
 	private int mLiving;
 	private int mMove;
 	private boolean mCheckLinezOfSight;
-	private boolean mCheckKill;
+	private int mCheckKill;
 	private boolean mCheckInvicibility;
 	private boolean mState;
 
@@ -51,19 +51,22 @@ public class Ninja extends MovingObject {
 		
 	}
 
-	private static boolean findPlayer(boolean mCheck) {
+	private boolean findPlayer(boolean mCheck) {
 		if (mCheck == true) {
-			return computeKill();
+			return true;
 		} else
 			return false;
 	}
-	private static boolean computeKill() {
-		
-		return true;
+	private int computeKill() {
+		int lifes=0;
+		if(mCheckLinezOfSight== true){
+			lifes++;
+		}
+		return lifes;
 
 	}
 
-	private static boolean computeInvincibility() {
+	private boolean computeInvincibility() {
 		if (po.mCheckInvincibility() == true) {
 			return true;
 		} else
@@ -83,6 +86,10 @@ public class Ninja extends MovingObject {
 	}
 	public int getMovement(){
 		return mMove;
+	}
+	
+	public int getmCheckKill() {
+		return mCheckKill;
 	}
 
 	public boolean position(int playerPO) {
