@@ -4,17 +4,19 @@ import edu.cpp.cs.cs141.WarlocksOfTheBeach.Player;
 import edu.cpp.cs.cs141.WarlocksOfTheBeach.MovingObject;
 import java.util.Random;
 
-import org.omg.PortableServer.POA;
-
 /**
  * @author edgarchilin pliving mMove mCheckLinezOfSight mCheckKill
  *         mCheckInvincibility fix set from saved games
+ * 
+ *         need to add movement in the 0-80 or X & Y 
+ *         also cannot go into rooms
  * 
  */
 public class Ninja extends MovingObject {
 
 	private static Player po;
 
+	private int pPosition;
 	private int pLiving;
 	private int pMove;
 	private int pCheckLinezOfSight;
@@ -24,12 +26,21 @@ public class Ninja extends MovingObject {
 
 	public Ninja() {
 		super();
+		pPosition = randPosition();
 		pLiving = computeLife();
 		pMove = computeMovement();
 		pCheckLinezOfSight = mFindPosition(pCheckLinezOfSight);
 		pCheckKill = computeKill();
 		pCheckInvicibility = computeInvincibility();
 		pState = checkStatus();
+	}
+
+	private static int randPosition() {
+		int rand = new Random().nextInt(80);
+		if (rand == 73) {
+			randPosition();
+		}
+		return rand;
 	}
 
 	private boolean checkStatus() {
@@ -45,24 +56,8 @@ public class Ninja extends MovingObject {
 	}
 
 	private int computeMovement() {
-		if(super.mGetXPosition() != 1  && super.mGetYPosition() != 4 ) 
-			if( super.mGetXPosition() != && super.mGetYPosition() != )
-				if( super.mGetXPosition() != && super.mGetYPosition() != )
-				if ( super.mGetXPosition() != && super.mGetYPosition() != )	
-				if ( super.mGetXPosition() != && super.mGetYPosition() != )	
-					
 		int rand = new Random().nextInt(3);
 		return super.mMove(rand);
-		
-	}
-
-	private int computeKill() {
-		int lifes = 0;
-		if (pCheckLinezOfSight == (1 | 2 | 3 | 4) ) {
-			lifes++;
-		}
-		return lifes;
-
 	}
 
 	private boolean computeInvincibility() {
@@ -72,6 +67,65 @@ public class Ninja extends MovingObject {
 
 			return false;
 	}
+
+	public int computeKill() {
+		int lifes = 0;
+		if (pCheckLinezOfSight == (1 | 2 | 3 | 4)) {
+			lifes++;
+		}
+		return lifes;
+
+	}
+
+	public int mFindPosition(int playerPO) {
+		if (playerPO + 1 == super.mGetXPosition() * 9) {
+			pCheckLinezOfSight = 1;
+			return pCheckLinezOfSight;
+		} else if (playerPO - 1 == super.mGetXPosition() * 9) {
+			pCheckLinezOfSight = 2;
+			return pCheckLinezOfSight;
+		} else if (playerPO + 9 == super.mGetYPosition() * 9) {
+			pCheckLinezOfSight = 3;
+			return pCheckLinezOfSight;
+		} else if (playerPO - 9 == super.mGetYPosition() * 9) {
+			pCheckLinezOfSight = 4;
+			return pCheckLinezOfSight;
+		} else {
+			pCheckLinezOfSight = -1;
+			return pCheckLinezOfSight;
+		}
+	}
+
+	// Setters for the properties
+
+	public void setpLiving(int tLiving) {
+		pLiving = tLiving;
+	}
+
+	public void setpMove(int tMove) {
+		pMove = tMove;
+	}
+
+	public void setpCheckLinezOfSight(int tCheckLinezOfSight) {
+		pCheckLinezOfSight = tCheckLinezOfSight;
+	}
+
+	public void setpCheckKill(int tCheckKill) {
+		pCheckKill = tCheckKill;
+	}
+
+	public void setpCheckInvicibility(boolean tCheckInvicibility) {
+		pCheckInvicibility = tCheckInvicibility;
+	}
+
+	public void setpState(boolean tState) {
+		pState = tState;
+	}
+
+	public void setPosition(int tposition) {
+		pPosition = tposition;
+	}
+	// Getter for the properties
 
 	public boolean mCheckInvicibility() {
 		return pCheckInvicibility;
@@ -89,26 +143,15 @@ public class Ninja extends MovingObject {
 		return pMove;
 	}
 
+	public int mPosition() {
+		return pPosition;
+	}
+
 	public int mCheckKill() {
 		return pCheckKill;
 	}
 
-	public int mFindPosition(int playerPO) {
-		if (playerPO + 1 == super.mGetXPosition() % 9) {
-			pCheckLinezOfSight= 1;
-			return pCheckLinezOfSight;
-		} else if (playerPO - 1 == super.mGetXPosition() % 9) {
-			pCheckLinezOfSight= 2;
-			return pCheckLinezOfSight;
-		} else if (playerPO + 9 == super.mGetYPosition() * 9) {
-			pCheckLinezOfSight= 3;
-			return pCheckLinezOfSight;
-		} else if (playerPO - 9 == super.mGetYPosition() * 9) {
-			pCheckLinezOfSight= 4;
-			 return pCheckLinezOfSight;
-		} else {
-			pCheckLinezOfSight= -1;
-			return pCheckLinezOfSight;
-		}
+	public boolean mCheckState() {
+		return pState;
 	}
 }
