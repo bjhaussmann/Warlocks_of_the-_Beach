@@ -1,7 +1,6 @@
 package edu.cpp.cs.cs141.WarlocksOfTheBeach;
 
 import edu.cpp.cs.cs141.WarlocksOfTheBeach.Player;
-import edu.cpp.cs.cs141.WarlocksOfTheBeach.MovingObject;
 import java.util.Random;
 
 /**
