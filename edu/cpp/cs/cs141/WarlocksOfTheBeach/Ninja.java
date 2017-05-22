@@ -7,8 +7,7 @@ import java.util.Random;
  * @author edgarchilin pliving mMove mCheckLinezOfSight mCheckKill
  *         mCheckInvincibility fix set from saved games
  * 
- *         need to add movement in the 0-80 or X & Y 
- *         also cannot go into rooms
+ *         need to add movement in the 0-80 or X & Y also cannot go into rooms
  * 
  */
 public class Ninja extends MovingObject {
@@ -16,7 +15,7 @@ public class Ninja extends MovingObject {
 	private static Player po;
 
 	private int pPosition;
-	private int pLiving;
+	private int pHealth;
 	private int pMove;
 	private int pCheckLinezOfSight;
 	private int pCheckKill;
@@ -26,7 +25,7 @@ public class Ninja extends MovingObject {
 	public Ninja() {
 		super();
 		pPosition = randPosition();
-		pLiving = computeLife();
+		pHealth = computeLife();
 		pMove = computeMovement();
 		pCheckLinezOfSight = mFindPosition(pCheckLinezOfSight);
 		pCheckKill = computeKill();
@@ -34,7 +33,7 @@ public class Ninja extends MovingObject {
 		pState = checkStatus();
 	}
 
-	private static int randPosition() {
+	private int randPosition() {
 		int rand = new Random().nextInt(80);
 		if (rand == 73) {
 			randPosition();
@@ -42,29 +41,28 @@ public class Ninja extends MovingObject {
 		return rand;
 	}
 
-	private boolean checkStatus() {
-		if (pLiving == 1) {
+	private int computeLife() {
+		return 1;
+	}
+
+	public boolean checkStatus() {
+		if (pHealth == 1) {
 			return true;
 		} else {
 			return false;
 		}
 	}
 
-	private int computeLife() {
-		return 1;
-	}
-
-	private int computeMovement() {
-		int rand = new Random().nextInt(3);
-		return super.mMove(rand);
-	}
-
-	private boolean computeInvincibility() {
+	public boolean computeInvincibility() {
 		if (po.mCheckInvincibility() == true) {
 			return true;
 		} else
-
 			return false;
+	}
+
+	public int computeMovement() {
+		int rand = new Random().nextInt(3);
+		return super.mMove(rand);
 	}
 
 	public int computeKill() {
@@ -74,6 +72,10 @@ public class Ninja extends MovingObject {
 		}
 		return lifes;
 
+	}
+
+	public int Death() {
+		return pHealth--;
 	}
 
 	public int mFindPosition(int playerPO) {
@@ -98,7 +100,7 @@ public class Ninja extends MovingObject {
 	// Setters for the properties
 
 	public void setpLiving(int tLiving) {
-		pLiving = tLiving;
+		pHealth = tLiving;
 	}
 
 	public void setpMove(int tMove) {
@@ -131,7 +133,7 @@ public class Ninja extends MovingObject {
 	}
 
 	public int mEnemyHealth() {
-		return pLiving;
+		return pHealth;
 	}
 
 	public boolean mEnemyStatus() {
