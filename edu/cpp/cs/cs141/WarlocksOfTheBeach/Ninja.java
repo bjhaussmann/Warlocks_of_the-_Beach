@@ -24,28 +24,28 @@ public class Ninja extends MovingObject {
 
 	public Ninja() {
 		super();
-		pPosition = randPosition();
-		pHealth = computeLife();
-		pMove = computeMovement();
+		pPosition = mRandPosition();
+		pHealth = mComputeLife();
+		pMove = mComputeMovement();
 		pCheckLinezOfSight = mFindPosition(pCheckLinezOfSight);
-		pCheckKill = computeKill();
-		pCheckInvicibility = computeInvincibility();
-		pState = checkStatus();
+		pCheckKill = mComputeKill();
+		pCheckInvicibility = mComputeInvincibility();
+		pState = mCheckStatus();
 	}
 
-	private int randPosition() {
+	private int mRandPosition() {
 		int rand = new Random().nextInt(80);
 		if (rand == 73) {
-			randPosition();
+			mRandPosition();
 		}
 		return rand;
 	}
 
-	private int computeLife() {
+	private int mComputeLife() {
 		return 1;
 	}
 
-	public boolean checkStatus() {
+	public boolean mCheckStatus() {
 		if (pHealth == 1) {
 			return true;
 		} else {
@@ -53,19 +53,19 @@ public class Ninja extends MovingObject {
 		}
 	}
 
-	public boolean computeInvincibility() {
+	public boolean mComputeInvincibility() {
 		if (po.mCheckInvincibility() == true) {
 			return true;
 		} else
 			return false;
 	}
 
-	public int computeMovement() {
+	public int mComputeMovement() {
 		int rand = new Random().nextInt(3);
 		return super.mMove(rand);
 	}
 
-	public int computeKill() {
+	public int mComputeKill() {
 		int lifes = 0;
 		if (pCheckLinezOfSight == (1 | 2 | 3 | 4)) {
 			lifes++;
@@ -74,7 +74,7 @@ public class Ninja extends MovingObject {
 
 	}
 
-	public int Death() {
+	public int mDeath() {
 		return pHealth--;
 	}
 
