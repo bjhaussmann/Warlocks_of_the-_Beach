@@ -297,15 +297,20 @@ public class GameEngine {
 		do
 		{
 			
-		int tDirection = UI.mPMove(pc.mGetPosition());
-		if (pc.mMove(tDirection) == -1);
-		
+		int tDirection = UI.mPMove();
+		if (pc.mMove(tDirection) != -1)
+			tVM = true;
+		else 
+			UI.InvalidMove();
 		
 		} while (tVM==false);
 	}
 
 	public void mNMove() {
-
+		for (int i = 0; i<6; i++)
+		{
+			npc[i].mMovement();
+		}
 	}
 
 	public boolean mCheckGameState() {

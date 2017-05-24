@@ -24,13 +24,14 @@ public class Ninja extends MovingObject {
 
 	public Ninja() {
 		super();
+		
 		pPosition = mRandPosition();
-		pHealth = mComputeLife();
+		/*pHealth = mComputeLife();
 		pMove = mComputeMovement();
 		pCheckLinezOfSight = mFindPosition(pCheckLinezOfSight);
 		pCheckKill = mComputeKill();
 		pCheckInvicibility = mComputeInvincibility();
-		pState = mCheckStatus();
+		pState = mCheckStatus();*/
 	}
 
 	private int mRandPosition() {
@@ -60,9 +61,13 @@ public class Ninja extends MovingObject {
 			return false;
 	}
 
-	public int mComputeMovement() {
-		int rand = new Random().nextInt(3);
-		return super.mMove(rand);
+	public void mComputeMovement() {
+		
+		boolean tVM = false;
+		do{
+		int rand = new Random().nextInt(4);
+		super.mMove(rand);
+		} while (tVM = false);
 	}
 
 	public int mComputeKill() {
