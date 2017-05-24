@@ -40,9 +40,9 @@ public class GameEngine {
 				tSuccess = true;
 			} else {
 				if (mLoadSave() == -1) {
-					UI.mLoadFailed();
+					// UI.mLoadFailed();
 				} else {
-					UI.mLoadSuccess();
+					// UI.mLoadSuccess();
 					tSuccess = true;
 				}
 
@@ -148,18 +148,15 @@ public class GameEngine {
 
 	public int mLoadSave() {
 
-		UI.mLoadGame(DocCntrl.mGetFiles());
-		if (DocCntrl.mOpenFile() == -1) {
-			UI.mLoadFailed();
-			return -1;
-		} else {
-			pGameBoard = DocCntrl.mGetGB();
-			pc = DocCntrl.mGetPlayer();
-			npc = DocCntrl.mGetNinja();
-			DocCntrl.mCloseDoc();
-			return 0;
-		
-		}
+		/*
+		 * UI.mLoadGame(DocCntrl.mGetFiles()); if (DocCntrl.mOpenFile() == -1) {
+		 * UI.mLoadFailed(); return -1; } else { pGameBoard = DocCntrl.mGetGB();
+		 * pc = DocCntrl.mGetPlayer(); npc = DocCntrl.mGetNinja();
+		 * DocCntrl.mCloseDoc();
+		 */
+		return 0;
+
+		// }
 
 	}
 
@@ -217,43 +214,94 @@ public class GameEngine {
 	}
 
 	public void mSave() {
-		String FileName = UI.mSave();
-		DocCntrl.mSave(pGameBoard, pc, npc, FileName);
+		// String FileName = UI.mSave();
+		// DocCntrl.mSave(pGameBoard, pc, npc, FileName);
 	}
 
 	public void mLook() {
 
 	}
 
-	public void mShoot()
-	{
+	public void mShoot() {
 		int tDirection = UI.mShoot();
 		int tBPosition = pc.mGetPosition();
 		boolean tBTraveling = true;
-		while (tBTraveling = true)
-		
-			if (tDirection == 0) //up
-				{
-					tBPosition = tBPosition - 9;
-					if (tBPosition < 0)
-						tBTraveling = false;
-					else
-					{
-						for (int i = 0; i <6; i++)	
-						{
-							if (npc[i].mGetPosition() == tBPosition)
-							{
-								npc[i].mDeath();
-								tBTraveling = false;
-							}
+		while (tBTraveling = true) {
+			if (tDirection == 0) // up
+			{
+				tBPosition = tBPosition - 9;
+				if (tBPosition < 0)
+					tBTraveling = false;
+				else {
+					for (int i = 0; i < 6; i++) {
+						if (npc[i].mGetPosition() == tBPosition) {
+							npc[i].mDeath();
+							tBTraveling = false;
 						}
 					}
 				}
-				
+			}
+
+			else if (tDirection == 1) // right
+			{
+				tBPosition = tBPosition + 1;
+				if (tBPosition % 9 == 0)
+					tBTraveling = false;
+				else {
+					for (int i = 0; i < 6; i++) {
+						if (npc[i].mGetPosition() == tBPosition) {
+							npc[i].mDeath();
+							tBTraveling = false;
+						}
+					}
+				}
+			}
+
+			else if (tDirection == 2) // down
+			{
+				tBPosition = tBPosition + 9;
+				if (tBPosition > 80)
+					tBTraveling = false;
+				else {
+					for (int i = 0; i < 6; i++) {
+						if (npc[i].mGetPosition() == tBPosition) {
+							npc[i].mDeath();
+							tBTraveling = false;
+						}
+					}
+				}
+			}
+
+			else if (tDirection == 0) // left
+			{
+				tBPosition = tBPosition - 1;
+				if (tBPosition % 9 == 8)
+					tBTraveling = false;
+				else {
+					for (int i = 0; i < 6; i++) {
+						if (npc[i].mGetPosition() == tBPosition) {
+							npc[i].mDeath();
+							tBTraveling = false;
+						}
+					}
+				}
+			}
+
+		}
+
 	}
 
 	public void mPMove() {
-
+		boolean tVM = false;
+		
+		do
+		{
+			
+		int tDirection = UI.mPMove(pc.mGetPosition());
+		if (pc.mMove(tDirection) == -1);
+		
+		
+		} while (tVM==false);
 	}
 
 	public void mNMove() {

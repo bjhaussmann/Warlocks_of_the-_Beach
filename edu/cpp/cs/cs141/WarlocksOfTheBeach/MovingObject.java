@@ -22,9 +22,7 @@ public class MovingObject {
 	}
 
 	public int mMove(int tMove) {
-		int tResult = 0;
 
-		if (tMove >= 0 && tMove <= 3) {
 			if (tMove == 0 && pYPosition != 0) {
 				pYPosition--;
 			} else if (tMove == 1 && pXPosition != 8) {
@@ -33,14 +31,10 @@ public class MovingObject {
 				pYPosition++;
 			} else if (tMove == 3 && pXPosition != 0) {
 				pXPosition--;
-			} else {
-				tResult = -1;
-			}
-		} else {
-			tResult = -1;
-		}
+			} else 
+				return -1;
 
-		return tResult;
+		return 0;
 	}
 	
 	public int mGetPosition() {
