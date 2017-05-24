@@ -18,9 +18,7 @@ public class MovingObject {
 
 	// test
 
-	public MovingObject(int tXPosition, int tYPosition) {
-		this.pXPosition = tXPosition;
-		this.pYPosition = tYPosition;
+	public MovingObject() {
 	}
 
 	public int mMove(int tMove) {
