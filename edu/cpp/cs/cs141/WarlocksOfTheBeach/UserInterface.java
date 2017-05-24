@@ -31,19 +31,25 @@ public class UserInterface {
 	 */
 	public void mPrintBoard(GameSpace[][] tGB, int tPlayer, int tNinja[]) {
 		System.out.println("PrintGameBoard start");
-		
+		System.out.println(tPlayer);
+		for (int i = 0; i < 6; i++)
+		{
+			System.out.println(tNinja[i]);
+		}
 		for (int i = 0; i<9; i++)
 			{
 			//System.out.println("Y = " + i);
 			for (int j = 0; j<9; j++)
 			{
 				System.out.print("[");
-				if (tGB[i][j].getClass().equals(Null.class))
-					System.out.print(" ");
+				
+				
+				if (i == (tPlayer/9) && j == (tPlayer%9))
+					System.out.print("P");
 				else if ((i == tNinja[0]/9 && j == tNinja[0]%9) || (i == tNinja[1]/9 && j == tNinja[1]%9) || (i == tNinja[2]/9 && j == tNinja[2]%9) || (i == tNinja[3]/9 && j == tNinja[3]%9) || (i == tNinja[4]/9 && j == tNinja[4]%9) || (i == tNinja[5]/9 && j == tNinja[5]%9))
 					System.out.print("N");
-				else if (i == (tPlayer/9) && j == (tPlayer%9))
-					System.out.print("P");
+				else if (tGB[i][j].getClass().equals(Null.class))
+					System.out.print(" ");
 				else if (tGB[i][j].getClass().equals(Room.class))
 					System.out.print("r");
 				else if (tGB[i][j].getClass().equals(BriefCase.class))

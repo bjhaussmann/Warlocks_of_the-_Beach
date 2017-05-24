@@ -14,7 +14,7 @@ public class Ninja extends MovingObject {
 
 	private static Player po;
 
-	private int pPosition;
+	
 	private int pHealth;
 	private int pMove;
 	private int pCheckLinezOfSight;
@@ -24,8 +24,15 @@ public class Ninja extends MovingObject {
 
 	public Ninja() {
 		super();
+		do
+		{
+		int tY = new Random().nextInt(9);
+		int tX = new Random().nextInt(9);
+		super.pPosition = (tY*9)+(tX);
+		}while ((((super.pPosition == 0) && (super.pPosition == 1)) && (((pPosition == 2) && (pPosition == 9)) && ((pPosition == 10) && (pPosition == 11)))) && (((pPosition == 18) && (pPosition == 19)) && (pPosition == 20)));
 		
-		pPosition = mRandPosition();
+		
+		
 		/*pHealth = mComputeLife();
 		pMove = mComputeMovement();
 		pCheckLinezOfSight = mFindPosition(pCheckLinezOfSight);
@@ -126,7 +133,18 @@ public class Ninja extends MovingObject {
 	public void setpState(boolean tState) {
 		pState = tState;
 	}
-
+	public void mMoveNinja()
+	{
+		boolean tVM = false;
+		do
+		{
+			int tD = new Random().nextInt(4);
+			int tMR = super.mMove(tD);
+			if (tMR > -1)
+				tVM = true;
+							
+		}while (tVM == false);
+	}
 	public void setPosition(int tposition) {
 		pPosition = tposition;
 	}

@@ -13,7 +13,7 @@ package edu.cpp.cs.cs141.WarlocksOfTheBeach;
 public class MovingObject {
 
 	private int pXPosition;
-
+	protected int pPosition;
 	private int pYPosition;
 
 	// test
@@ -23,23 +23,26 @@ public class MovingObject {
 
 	public int mMove(int tMove) {
 
-			if (tMove == 0 && pYPosition != 0) {
-				pYPosition--;
-			} else if (tMove == 1 && pXPosition != 8) {
-				pXPosition++;
-			} else if (tMove == 2 && pYPosition != 8) {
-				pYPosition++;
-			} else if (tMove == 3 && pXPosition != 0) {
-				pXPosition--;
+			if (tMove == 0 && pPosition/9 != 0) {
+				pPosition = pPosition - 9;
+				return 0;
+			} else if (tMove == 1 && pPosition%9 != 8) {
+				pPosition = pPosition + 1;
+				return 0;
+			} else if (tMove == 2 && pPosition/9 != 8) {
+				pPosition = pPosition + 9;
+				return 0;
+			} else if (tMove == 3 && pPosition%9 != 0) {
+				pPosition = pPosition - 1;
+				return 0;
 			} else 
-				return -1;
+				{return -1;}
 
-		return 0;
+		
 	}
 	
 	public int mGetPosition() {
-		int tPosition = ((this.pYPosition * 9) + this.pXPosition);
-		return tPosition;
+		return pPosition;
 	}
 
 	public int mGetXPosition() {

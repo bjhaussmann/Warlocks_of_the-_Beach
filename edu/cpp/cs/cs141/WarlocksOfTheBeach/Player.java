@@ -25,6 +25,7 @@ public class Player extends MovingObject {
 	// Whether or not the player had radar capabilities.
 	private boolean pRadar;
 
+	private int pPosition;
 	// Constructor for new Player instance.
 	public Player() {
 		super();
@@ -32,6 +33,7 @@ public class Player extends MovingObject {
 		pLives = 3;
 		pInvincibility = 0;
 		pRadar = false;
+		pPosition = 0;
 	}
 
 	//Check if the player currently has invincibility regardless of turns left.
