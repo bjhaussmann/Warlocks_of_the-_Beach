@@ -7,18 +7,9 @@ package edu.cpp.cs.cs141.WarlocksOfTheBeach;
  */
 public class GameSpace {
 
-	final private String pName;
 	
-//	private int pXPosition;
-//	
-//	private int pYPosition;
+	public GameSpace() {
 	
-	public GameSpace(String tName) {
-		this.pName = tName;
-	}
-	
-	public String mReturnType () {
-		return pName;
 	}
 	
 //	public void setXPosition(int tXPosition) {

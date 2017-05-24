@@ -16,13 +16,7 @@ public class GameEngine {
 
 	public void mStartDebug() {
 		System.out.println("Debug Start");
-		UI = UserInterface.mCreateInterface(1);
-		int tNinja[] = new int[6];
-		for (int i = 0; i < 6; i++)
-			tNinja[i] = new Random().nextInt(80);
-		int tPlayer = 0;
-		UI.mPrintBoard(mGenerateGame(), tPlayer, tNinja);
-		;
+		mStartGame();
 		System.out.println("Debug end");
 	}
 
@@ -37,6 +31,11 @@ public class GameEngine {
 		do {
 			if (UI.mNew() == true) {
 				pGameBoard = mGenerateGame();
+				pc = new Player();
+				for (int i = 0; i<6; i++)
+				{
+					npc[i] = new Ninja();
+				}
 				tSuccess = true;
 			} else {
 				if (mLoadSave() == -1) {
@@ -157,10 +156,6 @@ public class GameEngine {
 		return 0;
 
 		// }
-
-	}
-
-	public void mNewGameBoard() {
 
 	}
 
@@ -324,10 +319,10 @@ public class GameEngine {
 	public boolean mCheckGameState() {
 
 		if (pc.mGetLives() >= 0) {
-			UI.mGameLoss();
+			//UI.mGameLoss();
 			return true;
 		} else if (pGameBoard[(pc.mGetPosition() / 9)][(pc.mGetPosition() % 9)].getClass().equals(BriefCase.class)) {
-			UI.mGameWin();
+			//UI.mGameWin();
 			return true;
 		}
 		else
