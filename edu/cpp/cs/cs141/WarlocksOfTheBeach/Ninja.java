@@ -70,12 +70,11 @@ public class Ninja extends MovingObject {
 		} while (tVM = false);
 	}
 
-	public int mComputeKill() {
-		int lifes = 0;
-		if (pCheckLinezOfSight == (1 | 2 | 3 | 4)) {
-			lifes++;
-		}
-		return lifes;
+	public int mComputeKill(int tPP) {
+		if ((tPP == pPosition-1) || (tPP == pPosition+1) || (tPP == pPosition-9) || (tPP == pPosition-1))
+			return 1;
+		else
+			return 0;
 
 	}
 

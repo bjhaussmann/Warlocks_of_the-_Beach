@@ -188,13 +188,19 @@ public class GameEngine {
 		boolean tEnd = false;
 		int tMove = 1;
 		do {
+			int tNP[] = new int[6];
+			for (int i = 0; i<6; i++)
+			{
+				tNP[i] = npc[i].mGetPosition();
+			}
+			UI.mPrintBoard(pGameBoard, pc.mGetPosition(), tNP);
 			tMove = 1;
 			int tSelection = UI.mTurnSelect();
 			if (tSelection == 0) {
-				mLook();
+				//mLook();
 				System.out.println("Look");
 			} else if (tSelection == 1) {
-				mShoot();
+				//mShoot();
 				System.out.println("Shoot");
 			} else if (tSelection == 2) {
 				mPMove();
@@ -205,7 +211,7 @@ public class GameEngine {
 				tEnd = true;
 			} else if (tSelection == 4) {
 				System.out.println("Saved");
-				mSave();
+				//mSave();
 			}
 
 		} while (tMove == 1 && tEnd == false);
@@ -293,29 +299,39 @@ public class GameEngine {
 
 	public void mPMove() {
 		boolean tVM = false;
-		
-		do
-		{
-			
-		int tDirection = UI.mPMove();
-		if (pc.mMove(tDirection) != -1)
-			tVM = true;
-		else 
-			UI.InvalidMove();
-		
-		} while (tVM==false);
+
+		do {
+
+			int tDirection = UI.mPMove();
+			if (pc.mMove(tDirection) != -1)
+				tVM = true;
+			else
+				UI.InvalidMove();
+
+		} while (tVM == false);
 	}
 
 	public void mNMove() {
-		for (int i = 0; i<6; i++)
-		{
-			npc[i].mMovement();
+
+		for (int i = 0; i < 6; i++) {
+			if (npc[i].mComputeKill(pc.mGetPosition()) == 1)
+				pc.mDeath();
+			else
+				npc[i].mMovement();
 		}
 	}
 
 	public boolean mCheckGameState() {
-		return false;
 
+		if (pc.mGetLives() >= 0) {
+			UI.mGameLoss();
+			return true;
+		} else if (pGameBoard[(pc.mGetPosition() / 9)][(pc.mGetPosition() % 9)].getClass().equals(BriefCase.class)) {
+			UI.mGameWin();
+			return true;
+		}
+		else
+			return false;
 	}
 
 	public int mRandomNum(int tUpperLimit) {
