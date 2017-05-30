@@ -57,15 +57,16 @@ public class Ninja extends MovingObject {
 		do {
 			int tD = new Random().nextInt(4);
 			int tMR = super.mMove(tD);
-				
-				//Ninjas will not go into room but jump over instead. fixing
-			if(tMR > -1)
-				if ((pPosition != 10) || (pPosition != 13)
-						|| (pPosition != 16) || (pPosition != 37) || (pPosition != 40) ||
-						(pPosition != 43) || (pPosition != 64) || (pPosition !=67) 
-						|| (pPosition != 70))
-					tVM= true;
 			
+			//Ninjas will not go into room but jump over instead. fixing
+			
+			if(tMR > -1) //Check valid movement if yes check Position not equal rooms 
+				if ((pPosition != 10) && (pPosition != 13) && (pPosition != 16) 
+						&& (pPosition != 37) && (pPosition != 40) && (pPosition != 43) 
+						&& (pPosition != 64) && (pPosition !=67) && (pPosition != 70))
+					
+					tVM= true;
+					
 		} while (tVM == false);
 	}
 
