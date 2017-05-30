@@ -8,10 +8,12 @@ public class GameEngine {
 	private Player pc;
 	private Ninja npc[];
 	private DocumenControl DocCntrl;
-
+	private boolean	pDebug;
+	
 	public GameEngine() {
 		UI = UserInterface.mCreateInterface(1);
 		DocCntrl = new DocumenControl();
+		pDebug = false;
 	}
 
 	public void mStartDebug() {
@@ -32,8 +34,7 @@ public class GameEngine {
 			if (UI.mNew() == true) {
 				pGameBoard = mGenerateGame();
 				pc = new Player();
-				for (int i = 0; i<6; i++)
-				{
+				for (int i = 0; i < 6; i++) {
 					npc[i] = new Ninja();
 				}
 				tSuccess = true;
@@ -183,19 +184,14 @@ public class GameEngine {
 		boolean tEnd = false;
 		int tMove = 1;
 		do {
-			int tNP[] = new int[6];
-			for (int i = 0; i<6; i++)
-			{
-				tNP[i] = npc[i].mGetPosition();
-			}
-			UI.mPrintBoard(pGameBoard, pc.mGetPosition(), tNP);
+			mPrintBoard();
 			tMove = 1;
 			int tSelection = UI.mTurnSelect();
 			if (tSelection == 0) {
-				//mLook();
+				// mLook();
 				System.out.println("Look");
 			} else if (tSelection == 1) {
-				//mShoot();
+				mShoot();
 				System.out.println("Shoot");
 			} else if (tSelection == 2) {
 				mPMove();
@@ -206,8 +202,12 @@ public class GameEngine {
 				tEnd = true;
 			} else if (tSelection == 4) {
 				System.out.println("Saved");
-				//mSave();
-			}
+				// mSave();
+			} else if (tSelection == 5)
+				{
+				pDebug = true;
+				mPrintBoard();
+				}
 
 		} while (tMove == 1 && tEnd == false);
 
@@ -224,71 +224,75 @@ public class GameEngine {
 	}
 
 	public void mShoot() {
-		int tDirection = UI.mShoot();
-		int tBPosition = pc.mGetPosition();
-		boolean tBTraveling = true;
-		while (tBTraveling = true) {
-			if (tDirection == 0) // up
-			{
-				tBPosition = tBPosition - 9;
-				if (tBPosition < 0)
-					tBTraveling = false;
-				else {
-					for (int i = 0; i < 6; i++) {
-						if (npc[i].mGetPosition() == tBPosition) {
-							npc[i].mDeath();
-							tBTraveling = false;
+		if (pc.mGetBullets() > 0) {
+			pc.mShoot();
+			int tDirection = UI.mShoot();
+			int tBPosition = pc.mGetPosition();
+			boolean tBTraveling = true;
+			while (tBTraveling == true) {
+				if (tDirection == 0) // up
+				{
+					tBPosition = tBPosition - 9;
+					if (tBPosition < 0)
+						tBTraveling = false;
+					else {
+						for (int i = 0; i < 6; i++) {
+							if (npc[i].mGetPosition() == tBPosition) {
+								npc[i].mDeath();
+								tBTraveling = false;
+							}
 						}
 					}
 				}
-			}
 
-			else if (tDirection == 1) // right
-			{
-				tBPosition = tBPosition + 1;
-				if (tBPosition % 9 == 0)
-					tBTraveling = false;
-				else {
-					for (int i = 0; i < 6; i++) {
-						if (npc[i].mGetPosition() == tBPosition) {
-							npc[i].mDeath();
-							tBTraveling = false;
+				else if (tDirection == 1) // right
+				{
+					tBPosition = tBPosition + 1;
+					if (tBPosition % 9 == 0)
+						tBTraveling = false;
+					else {
+						for (int i = 0; i < 6; i++) {
+							if (npc[i].mGetPosition() == tBPosition) {
+								npc[i].mDeath();
+								tBTraveling = false;
+							}
 						}
 					}
 				}
-			}
 
-			else if (tDirection == 2) // down
-			{
-				tBPosition = tBPosition + 9;
-				if (tBPosition > 80)
-					tBTraveling = false;
-				else {
-					for (int i = 0; i < 6; i++) {
-						if (npc[i].mGetPosition() == tBPosition) {
-							npc[i].mDeath();
-							tBTraveling = false;
+				else if (tDirection == 2) // down
+				{
+					tBPosition = tBPosition + 9;
+					if (tBPosition > 80)
+						tBTraveling = false;
+					else {
+						for (int i = 0; i < 6; i++) {
+							if (npc[i].mGetPosition() == tBPosition) {
+								npc[i].mDeath();
+								tBTraveling = false;
+							}
 						}
 					}
 				}
-			}
 
-			else if (tDirection == 0) // left
-			{
-				tBPosition = tBPosition - 1;
-				if (tBPosition % 9 == 8)
-					tBTraveling = false;
-				else {
-					for (int i = 0; i < 6; i++) {
-						if (npc[i].mGetPosition() == tBPosition) {
-							npc[i].mDeath();
-							tBTraveling = false;
+				else if (tDirection == 0) // left
+				{
+					tBPosition = tBPosition - 1;
+					if (tBPosition % 9 == 8)
+						tBTraveling = false;
+					else {
+						for (int i = 0; i < 6; i++) {
+							if (npc[i].mGetPosition() == tBPosition) {
+								npc[i].mDeath();
+								tBTraveling = false;
+							}
 						}
 					}
 				}
-			}
 
-		}
+			}
+		} else
+			UI.mOutofAmmo();
 
 	}
 
@@ -312,24 +316,41 @@ public class GameEngine {
 			if (npc[i].mComputeKill(pc.mGetPosition()) == 1)
 				pc.mDeath();
 			else
-				npc[i].mMovement();
+				npc[i].mMoveNinja();
 		}
 	}
 
 	public boolean mCheckGameState() {
 
-		if (pc.mGetLives() >= 0) {
-			//UI.mGameLoss();
+		if (pc.mGetLives() <= 0) {
+			UI.mGameLoss();
 			return true;
 		} else if (pGameBoard[(pc.mGetPosition() / 9)][(pc.mGetPosition() % 9)].getClass().equals(BriefCase.class)) {
-			//UI.mGameWin();
+			UI.mGameWin();
 			return true;
-		}
-		else
+		} else
 			return false;
 	}
 
 	public int mRandomNum(int tUpperLimit) {
 		return (new Random().nextInt(tUpperLimit));
+	}
+	
+	public void mPrintBoard()
+	{
+		int tNP[] = new int[6];
+		for (int i = 0; i < 6; i++)
+		{
+			tNP[i] = npc[i].mGetPosition();
+		}
+		
+		if (pDebug == true)
+		{
+			UI.mPrintDebugBoard(pGameBoard, pc.mGetPosition(), tNP);
+		}
+		else
+		{
+			UI.mPrintBoard(pGameBoard, pc.mGetPosition(), pc.mIsRadar());
+		}
 	}
 }
