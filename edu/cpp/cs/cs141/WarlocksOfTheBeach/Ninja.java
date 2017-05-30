@@ -1,111 +1,72 @@
 package edu.cpp.cs.cs141.WarlocksOfTheBeach;
 
-import edu.cpp.cs.cs141.WarlocksOfTheBeach.Player;
 import java.util.Random;
 
 /**
  * @author edgarchilin pliving mMove mCheckLinezOfSight mCheckKill
  *         mCheckInvincibility fix set from saved games
  * 
- *         need to add movement in the 0-80 or X & Y also cannot go into rooms
- * 
  */
 public class Ninja extends MovingObject {
 
-	private static Player po;
-
-	
 	private int pHealth;
-	private int pMove;
-	private int pCheckLinezOfSight;
-	private int pCheckKill;
-	private boolean pCheckInvicibility;
-	private boolean pState;
 
 	public Ninja() {
 		super();
-		do
-		{
-		int tY = new Random().nextInt(9);
-		int tX = new Random().nextInt(9);
-		super.pPosition = (tY*9)+(tX);
-		}while ((((super.pPosition == 0) && (super.pPosition == 1)) && (((pPosition == 2) && (pPosition == 9)) && ((pPosition == 10) && (pPosition == 11)))) && (((pPosition == 18) && (pPosition == 19)) && (pPosition == 20)));
-		
-		
-		
-		/*pHealth = mComputeLife();
-		pMove = mComputeMovement();
-		pCheckLinezOfSight = mFindPosition(pCheckLinezOfSight);
-		pCheckKill = mComputeKill();
-		pCheckInvicibility = mComputeInvincibility();
-		pState = mCheckStatus();*/
-	}
+		do {
+			int tY = new Random().nextInt(9);
+			int tX = new Random().nextInt(9);
+			super.pPosition = (tY * 9) + (tX);
+		} while ((pPosition == 0) || (pPosition == 1)|| (pPosition == 2) 
+				|| (pPosition == 9) || (pPosition == 10) || (pPosition == 11)
+				|| (pPosition == 18) || (pPosition == 19) || (pPosition == 20) 
+				|| (pPosition == 10) || (pPosition == 13) || (pPosition == 16)
+				|| (pPosition == 37) || (pPosition == 40) ||(pPosition == 43) 
+				|| (pPosition == 64) || (pPosition ==67) || (pPosition == 70));
+				
 
-	private int mRandPosition() {
-		int rand = new Random().nextInt(80);
-		if (rand == 73) {
-			mRandPosition();
-		}
-		return rand;
+		pHealth = mComputeLife();
+
 	}
 
 	private int mComputeLife() {
 		return 1;
 	}
 
-	public boolean mCheckStatus() {
-		if (pHealth == 1) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	public boolean mComputeInvincibility() {
-		if (po.mCheckInvincibility() == true) {
-			return true;
+	public int mComputeInvincibility(int invincibilty) {
+		if (invincibilty >= 1) {
+			return 1;
 		} else
-			return false;
-	}
-
-	public void mComputeMovement() {
-		
-		boolean tVM = false;
-		do{
-		int rand = new Random().nextInt(4);
-		super.mMove(rand);
-		} while (tVM = false);
+			return 0;
 	}
 
 	public int mComputeKill(int tPP) {
-		if ((tPP == pPosition-1) || (tPP == pPosition+1) || (tPP == pPosition-9) || (tPP == pPosition-1))
+		if ((tPP == pPosition - 1) || (tPP == pPosition + 1) || (tPP == pPosition - 9) || 
+				(tPP == pPosition - 1))
 			return 1;
 		else
 			return 0;
-
 	}
 
-	public int mDeath() {
+	public int mNinjaDeath() {
 		return pHealth--;
 	}
 
-	public int mFindPosition(int playerPO) {
-		if (playerPO + 1 == super.mGetXPosition() * 9) {
-			pCheckLinezOfSight = 1;
-			return pCheckLinezOfSight;
-		} else if (playerPO - 1 == super.mGetXPosition() * 9) {
-			pCheckLinezOfSight = 2;
-			return pCheckLinezOfSight;
-		} else if (playerPO + 9 == super.mGetYPosition() * 9) {
-			pCheckLinezOfSight = 3;
-			return pCheckLinezOfSight;
-		} else if (playerPO - 9 == super.mGetYPosition() * 9) {
-			pCheckLinezOfSight = 4;
-			return pCheckLinezOfSight;
-		} else {
-			pCheckLinezOfSight = -1;
-			return pCheckLinezOfSight;
-		}
+	public void mMoveNinja() {
+		boolean tVM = false;
+		do {
+			int tD = new Random().nextInt(4);
+			int tMR = super.mMove(tD);
+				
+				//Ninjas will not go into room but jump over instead. fixing
+			if(tMR > -1)
+				if ((pPosition != 10) || (pPosition != 13)
+						|| (pPosition != 16) || (pPosition != 37) || (pPosition != 40) ||
+						(pPosition != 43) || (pPosition != 64) || (pPosition !=67) 
+						|| (pPosition != 70))
+					tVM= true;
+			
+		} while (tVM == false);
 	}
 
 	// Setters for the properties
@@ -114,67 +75,16 @@ public class Ninja extends MovingObject {
 		pHealth = tLiving;
 	}
 
-	public void setpMove(int tMove) {
-		pMove = tMove;
-	}
-
-	public void setpCheckLinezOfSight(int tCheckLinezOfSight) {
-		pCheckLinezOfSight = tCheckLinezOfSight;
-	}
-
-	public void setpCheckKill(int tCheckKill) {
-		pCheckKill = tCheckKill;
-	}
-
-	public void setpCheckInvicibility(boolean tCheckInvicibility) {
-		pCheckInvicibility = tCheckInvicibility;
-	}
-
-	public void setpState(boolean tState) {
-		pState = tState;
-	}
-	public void mMoveNinja()
-	{
-		boolean tVM = false;
-		do
-		{
-			int tD = new Random().nextInt(4);
-			int tMR = super.mMove(tD);
-			if (tMR > -1)
-				tVM = true;
-							
-		}while (tVM == false);
-	}
 	public void setPosition(int tposition) {
 		pPosition = tposition;
 	}
 	// Getter for the properties
 
-	public boolean mCheckInvicibility() {
-		return pCheckInvicibility;
-	}
-
-	public int mEnemyHealth() {
+	public int mGetEnemyHealth() {
 		return pHealth;
 	}
 
-	public boolean mEnemyStatus() {
-		return pState;
-	}
-
-	public int mMovement() {
-		return pMove;
-	}
-
-	public int mPosition() {
+	public int mGetNinjaPosition() {
 		return pPosition;
-	}
-
-	public int mCheckKill() {
-		return pCheckKill;
-	}
-
-	public boolean mCheckState() {
-		return pState;
 	}
 }
