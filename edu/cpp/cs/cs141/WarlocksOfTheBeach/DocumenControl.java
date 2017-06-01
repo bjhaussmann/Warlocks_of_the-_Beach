@@ -60,7 +60,7 @@ public class DocumenControl {
 	
 	private static File mFilePath(){
 		File sourceFile =  new File("mCreateFile()");
-		File destinationFile = new File("");
+		File destinationFile = new File("Users//git/Warlocks_of_the_Beach/edu/cpp/cs/cs141/WarlocksOfTheBeach/SaveFolder");
 		try{
 			Files.copy(sourceFile.toPath(),destinationFile.toPath(),StandardCopyOption.REPLACE_EXISTING);
 		}catch(IOException e){
@@ -71,7 +71,7 @@ public class DocumenControl {
 	
 	public static void mSave() {
 		try {
-			FileOutputStream fileOut = new FileOutputStream("FileName.dat");
+			FileOutputStream fileOut = new FileOutputStream("mCreateFile().dat");
 			ObjectOutputStream out = new ObjectOutputStream(fileOut);
 			out.writeObject(cGameBoard);
 			out.close();
@@ -93,11 +93,11 @@ public class DocumenControl {
 	@SuppressWarnings("unchecked")
 
 	public static void mOpenDoc() throws FileNotFoundException {
-	
+	 GameEngine GameEngine;
 		try {
 			FileInputStream fileIn = new FileInputStream("ObjectStorage.dat");
 			ObjectInputStream ois = new ObjectInputStream(fileIn);
-			(ObjectStorage)ois.read();
+			(GameEngine)ois.read();
 			ois.close();
 			fileIn.close();
 		} catch (IOException e) {
@@ -111,10 +111,10 @@ public class DocumenControl {
 	public static void mSearchFile() {
 
 		File file = new File(
-				"/Users/edgarchilin/git/Warlocks_of_the_Beach/edu/cpp/cs/cs141/WarlocksOfTheBeach");
+				"/Users//git/Warlocks_of_the_Beach/edu/cpp/cs/cs141/WarlocksOfTheBeach");
 		String[] str = file.list();
 		for (String string : str) {
-			if (string.endsWith(".ser")) {
+			if (string.endsWith(".dat")) {
 				System.out.println(string);
 			}
 
@@ -123,3 +123,4 @@ public class DocumenControl {
 	}
 
 }
+
