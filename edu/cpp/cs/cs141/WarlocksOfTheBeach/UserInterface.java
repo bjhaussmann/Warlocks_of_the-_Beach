@@ -297,7 +297,9 @@ public class UserInterface {
 						System.out.print("R");
 					else if (tGB[i][j].getClass().equals(Invicibility.class))
 						System.out.print("I");
-				} else
+				} else if (tGB[i][j].getClass().equals(Room.class) || tGB[i][j].getClass().equals(BriefCase.class)) 
+						System.out.println("r");
+				else
 					System.out.print("*");
 				System.out.print("]");
 			}
