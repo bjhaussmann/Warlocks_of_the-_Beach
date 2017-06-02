@@ -1,8 +1,18 @@
 package edu.cpp.cs.cs141.WarlocksOfTheBeach;
 
+import java.io.Serializable;
 import java.util.Random;
 
 public class GameEngine {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8510443614866628028L;
+	/**
+	 * 
+	 */
+	
 	private UserInterface UI;
 	private GameSpace pGameBoard[][];
 	private Player pc;
@@ -15,6 +25,16 @@ public class GameEngine {
 		DocCntrl = new DocumenControl();
 		pDebug = false;
 	}
+	
+	public GameEngine(GameSpace[][] tGS, Player tPC, Ninja[] tNPC)
+	{
+		UI = UserInterface.mCreateInterface(1);
+		DocCntrl = new DocumenControl();
+		pDebug = false;
+		pGameBoard = tGS;
+		pc = tPC;
+		npc = tNPC;
+	}
 
 	public void mStartDebug() {
 		System.out.println("Debug Start");
@@ -23,7 +43,7 @@ public class GameEngine {
 	}
 
 	public void mStartGame() {
-
+		UI.mIntro();
 		mSetGame();
 		mCoreGameLoop();
 	}
@@ -39,10 +59,7 @@ public class GameEngine {
 				}
 				tSuccess = true;
 			} else {
-				if (mLoadSave() == -1) {
-					// UI.mLoadFailed();
-				} else {
-					// UI.mLoadSuccess();
+				if (mLoad() != -1) {
 					tSuccess = true;
 				}
 
@@ -146,19 +163,7 @@ public class GameEngine {
 		return tGameBoard; // return type to expedite bug testing
 	}
 
-	public int mLoadSave() {
-
-		/*
-		 * UI.mLoadGame(DocCntrl.mGetFiles()); if (DocCntrl.mOpenFile() == -1) {
-		 * UI.mLoadFailed(); return -1; } else { pGameBoard = DocCntrl.mGetGB();
-		 * pc = DocCntrl.mGetPlayer(); npc = DocCntrl.mGetNinja();
-		 * DocCntrl.mCloseDoc();
-		 */
-		return 0;
-
-		// }
-
-	}
+	
 
 	public void mCoreGameLoop() {
 		boolean tEnd = false;
@@ -168,6 +173,7 @@ public class GameEngine {
 
 			if (tEnd == false) {
 				System.out.println("Ninja's moved");
+				mCheckPowerUps();
 				mNMove();
 				tEnd = mCheckGameState();
 			}
@@ -177,32 +183,53 @@ public class GameEngine {
 	}
 
 	/**
+	 * 
+	 */
+	private void mCheckPowerUps() {
+		if (pGameBoard[pc.mGetPosition()/9][pc.mGetPosition()%9].getClass().equals(Radar.class))
+		{
+			pc.mSetRadar();
+			pGameBoard[pc.mGetPosition()/9][pc.mGetPosition()%9] = new Null();
+		}
+		else if (pGameBoard[pc.mGetPosition()/9][pc.mGetPosition()%9].getClass().equals(Bullet.class))
+		{
+			pc.mReload();
+			pGameBoard[pc.mGetPosition()/9][pc.mGetPosition()%9] = new Null();
+		}
+		else if (pGameBoard[pc.mGetPosition()/9][pc.mGetPosition()%9].getClass().equals(Invicibility.class))
+		{
+			pc.mSetInvincibility();
+			pGameBoard[pc.mGetPosition()/9][pc.mGetPosition()%9] = new Null();
+		}
+	}
+
+	/**
 	 * @return
 	 */
 
 	private boolean mStartPhase() {
 		boolean tEnd = false;
 		int tMove = 1;
+		int tLook = 1;
+		mPrintBoard();
 		do {
-			mPrintBoard();
 			tMove = 1;
 			int tSelection = UI.mTurnSelect();
-			if (tSelection == 0) {
-				// mLook();
-				System.out.println("Look");
+			if (tSelection == 0 && tLook > 0) {
+				mLook();
+				tLook--;
 			} else if (tSelection == 1) {
 				mShoot();
-				System.out.println("Shoot");
+				mPrintBoard();
 			} else if (tSelection == 2) {
 				mPMove();
-				System.out.println("Move");
+				mPrintBoard();
 				tMove--;
 			} else if (tSelection == 3) {
-				System.out.println("Quit");
 				tEnd = true;
 			} else if (tSelection == 4) {
-				System.out.println("Saved");
-				// mSave();
+				mSave();
+				mPrintBoard();
 			} else if (tSelection == 5)
 				{
 				pDebug = true;
@@ -215,14 +242,33 @@ public class GameEngine {
 	}
 
 	public void mSave() {
-		// String FileName = UI.mSave();
-		// DocCntrl.mSave(pGameBoard, pc, npc, FileName);
+		DocCntrl.mSave(pGameBoard, pc, npc, UI.mSave());
 	}
 
 	public void mLook() {
-
+		int tNinja[] = new int[6];
+		for (int i = 0; i<6; i++)
+		{
+			tNinja[i] = npc[i].mGetPosition();
+		}
+		UI.mPrintBoard(pGameBoard, pc.mGetPosition(), pc.mIsRadar(), UI.mGetLookD(), tNinja);
 	}
 
+	public int mLoad()
+	{
+		GameEngine GE;
+		GE = DocCntrl.mOpenDoc(UI.mLoad());
+		if (GE.equals(null))
+		{
+			UI.mLoadFailed();
+			return -1;
+		}
+		else
+			this.pGameBoard = GE.pGameBoard;
+			this.pc = GE.pc;
+			this.npc = GE.npc;
+			return 0;
+	}
 	public void mShoot() {
 		if (pc.mGetBullets() > 0) {
 			pc.mShoot();
@@ -238,7 +284,7 @@ public class GameEngine {
 					else {
 						for (int i = 0; i < 6; i++) {
 							if (npc[i].mGetPosition() == tBPosition) {
-								npc[i].mDeath();
+								npc[i].mNinjaDeath();
 								tBTraveling = false;
 							}
 						}
@@ -253,7 +299,7 @@ public class GameEngine {
 					else {
 						for (int i = 0; i < 6; i++) {
 							if (npc[i].mGetPosition() == tBPosition) {
-								npc[i].mDeath();
+								npc[i].mNinjaDeath();
 								tBTraveling = false;
 							}
 						}
@@ -268,7 +314,7 @@ public class GameEngine {
 					else {
 						for (int i = 0; i < 6; i++) {
 							if (npc[i].mGetPosition() == tBPosition) {
-								npc[i].mDeath();
+								npc[i].mNinjaDeath();
 								tBTraveling = false;
 							}
 						}
@@ -283,7 +329,7 @@ public class GameEngine {
 					else {
 						for (int i = 0; i < 6; i++) {
 							if (npc[i].mGetPosition() == tBPosition) {
-								npc[i].mDeath();
+								npc[i].mNinjaDeath();
 								tBTraveling = false;
 							}
 						}
@@ -341,7 +387,10 @@ public class GameEngine {
 		int tNP[] = new int[6];
 		for (int i = 0; i < 6; i++)
 		{
-			tNP[i] = npc[i].mGetPosition();
+			if (npc[i].mGetEnemyHealth()>0)
+				tNP[i] = npc[i].mGetPosition();
+			else
+				tNP[i] = -1;
 		}
 		
 		if (pDebug == true)

@@ -1,13 +1,21 @@
 package edu.cpp.cs.cs141.WarlocksOfTheBeach;
+
+import java.io.Serializable;
+
 /**
  * @author bjhau
  *	author Cesar
  *	GameSpace is a parent object of the four types of items. They will have the mReturnType method to return
  *	its String name. The children objects call upon the super constructor to assign the appropriate String name.
  */
-public class GameSpace {
+public class GameSpace implements Serializable{
 
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2535505126098186389L;
+
 	public GameSpace() {
 	
 	}

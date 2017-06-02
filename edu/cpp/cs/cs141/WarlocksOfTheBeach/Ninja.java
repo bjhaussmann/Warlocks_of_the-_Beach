@@ -1,7 +1,7 @@
 package edu.cpp.cs.cs141.WarlocksOfTheBeach;
 
 import java.util.Random;
-
+import java.io.Serializable;
 /**
  * @author edgarchilin pliving mMove mCheckLinezOfSight mCheckKill
  *         mCheckInvincibility fix set from saved games
@@ -9,6 +9,10 @@ import java.util.Random;
  */
 public class Ninja extends MovingObject {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4720248096711044295L;
 	private int pHealth;
 
 	public Ninja() {
@@ -17,32 +21,18 @@ public class Ninja extends MovingObject {
 			int tY = new Random().nextInt(9);
 			int tX = new Random().nextInt(9);
 			super.pPosition = (tY * 9) + (tX);
-		} while ((pPosition == 0) || (pPosition == 1)|| (pPosition == 2) 
-				|| (pPosition == 9) || (pPosition == 10) || (pPosition == 11)
-				|| (pPosition == 18) || (pPosition == 19) || (pPosition == 20) 
-				|| (pPosition == 10) || (pPosition == 13) || (pPosition == 16)
-				|| (pPosition == 37) || (pPosition == 40) ||(pPosition == 43) 
-				|| (pPosition == 64) || (pPosition ==67) || (pPosition == 70));
-				
+		} while ((pPosition == 72) || (pPosition == 73) || (pPosition == 74) || (pPosition == 63) || (pPosition == 65)
+				|| (pPosition == 54) || (pPosition == 55) || (pPosition == 56) 
+				|| (pPosition == 10) || (pPosition == 13) || (pPosition == 16) 
+				|| (pPosition == 37) || (pPosition == 40) || (pPosition == 43) 
+				|| (pPosition == 64) || (pPosition == 67) || (pPosition == 70));
 
-		pHealth = mComputeLife();
+		pHealth = 1;
 
-	}
-
-	private int mComputeLife() {
-		return 1;
-	}
-
-	public int mComputeInvincibility(int invincibilty) {
-		if (invincibilty >= 1) {
-			return 1;
-		} else
-			return 0;
 	}
 
 	public int mComputeKill(int tPP) {
-		if ((tPP == pPosition - 1) || (tPP == pPosition + 1) || (tPP == pPosition - 9) || 
-				(tPP == pPosition - 1))
+		if (((tPP == pPosition - 1) || (tPP == pPosition + 1) || (tPP == pPosition - 9) || (tPP == pPosition - 1)) && pHealth > 0)
 			return 1;
 		else
 			return 0;
@@ -57,28 +47,24 @@ public class Ninja extends MovingObject {
 		do {
 			int tD = new Random().nextInt(4);
 			int tMR = super.mMove(tD);
-			
-			//Ninjas will not go into room but jump over instead. fixing
-			
-			if(tMR > -1) //Check valid movement if yes check Position not equal rooms 
-				if ((pPosition != 10) && (pPosition != 13) && (pPosition != 16) 
-						&& (pPosition != 37) && (pPosition != 40) && (pPosition != 43) 
-						&& (pPosition != 64) && (pPosition !=67) && (pPosition != 70))
-					
-					tVM= true;
-					
+			int tPP = pPosition;
+			// Ninjas will not go into room but jump over instead. fixing
+
+			if (tMR > -1) // Check valid movement if yes check Position not
+							// equal rooms
+			{
+				if ((pPosition != 10) && (pPosition != 13) && (pPosition != 16) && (pPosition != 37)
+						&& (pPosition != 40) && (pPosition != 43) && (pPosition != 64) && (pPosition != 67)
+						&& (pPosition != 70))
+
+				{
+					tVM = true;
+				} else
+					pPosition = tPP;
+			}
 		} while (tVM == false);
 	}
 
-	// Setters for the properties
-
-	public void setpLiving(int tLiving) {
-		pHealth = tLiving;
-	}
-
-	public void setPosition(int tposition) {
-		pPosition = tposition;
-	}
 	// Getter for the properties
 
 	public int mGetEnemyHealth() {

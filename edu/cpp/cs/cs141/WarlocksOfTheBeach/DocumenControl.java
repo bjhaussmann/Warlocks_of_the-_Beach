@@ -6,7 +6,7 @@
  */
 
 package edu.cpp.cs.cs141.WarlocksOfTheBeach;
-
+import java.io.Serializable;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -14,6 +14,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.util.Scanner;
@@ -27,8 +28,17 @@ import java.util.Scanner;
  */
 public class DocumenControl {
 
-	private static GameEngine cGameBoard;
 	
+	/**
+	 * 
+	 */
+	
+
+	/**
+	 * 
+	 */
+	
+
 	/**
 	 * @param mSave
 	 *            This will store the current objects into memory so the game
@@ -37,50 +47,23 @@ public class DocumenControl {
 	 *            mCloseDoc
 	 */
 
-	public static File mCreateFile() {
-        String fName = null;
-        File file = null;
-        System.out.println("Please choose file name:");
-        while (true) {
-            try (Scanner in = new Scanner(System.in)) {
-                fName = in.nextLine();
-                file = new File(fName);
-                if (!file.createNewFile()) {
-                    throw new RuntimeException("File already exist");
-                }
-                break;
-            } catch (Exception ex) {
-                System.out.println(ex.getMessage() + ", please try again:");
-            }
-        }
-
-        return file;
-    }
 	
 	
-	private static File mFilePath(){
-		File sourceFile =  new File("mCreateFile()");
-		File destinationFile = new File("Users//git/Warlocks_of_the_Beach/edu/cpp/cs/cs141/WarlocksOfTheBeach/SaveFolder");
-		try{
-			Files.copy(sourceFile.toPath(),destinationFile.toPath(),StandardCopyOption.REPLACE_EXISTING);
-		}catch(IOException e){
-			e.printStackTrace();
-		}
-		return null;
-	}
 	
-	public static void mSave() {
+	public void mSave(GameSpace tGS[][], Player tPC, Ninja tNJ[], String tFileOut) {
 		try {
-			FileOutputStream fileOut = new FileOutputStream("mCreateFile().dat");
+			FileOutputStream fileOut = new FileOutputStream(tFileOut + ".dat");
 			ObjectOutputStream out = new ObjectOutputStream(fileOut);
-			out.writeObject(cGameBoard);
+			out.writeObject((Object)tGS);
+			out.writeObject(tPC);
+			out.writeObject(tNJ);
 			out.close();
 			fileOut.close();
-			System.out.println("Game Saved");
 		} catch (IOException e) {
 			e.printStackTrace();
+			//System.out.println(e.toString());
 		}
-		
+		System.out.println("Save Successful");
 	}
 
 	/**
@@ -92,23 +75,30 @@ public class DocumenControl {
 
 	@SuppressWarnings("unchecked")
 
-	public static void mOpenDoc() throws FileNotFoundException {
-	 GameEngine GameEngine;
+	public GameEngine mOpenDoc(String tFileIn)  {
+	 GameEngine GE;
+	 GameSpace tGS[][];
+	 Player tPC;
+	 Ninja tNPC[];
 		try {
-			FileInputStream fileIn = new FileInputStream("ObjectStorage.dat");
+			FileInputStream fileIn = new FileInputStream(tFileIn + ".dat");
 			ObjectInputStream ois = new ObjectInputStream(fileIn);
-			(GameEngine)ois.read();
+			tGS = (GameSpace[][])ois.readObject();
+			tPC = (Player)ois.readObject();
+			tNPC = (Ninja[])ois.readObject();
+			GE = new GameEngine(tGS, tPC, tNPC);
 			ois.close();
 			fileIn.close();
 		} catch (IOException e) {
-			System.out.printf("-1", e);
-			e.printStackTrace();
+			return null;
+		} catch (ClassNotFoundException e) {
+			return null;
 		}
-	
+	return GE; 
 		  
 	}
 
-	public static void mSearchFile() {
+	public void mSearchFile() {
 
 		File file = new File(
 				"/Users//git/Warlocks_of_the_Beach/edu/cpp/cs/cs141/WarlocksOfTheBeach");

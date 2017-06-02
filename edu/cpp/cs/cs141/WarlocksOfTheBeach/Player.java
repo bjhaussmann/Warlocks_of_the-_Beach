@@ -2,7 +2,7 @@
  * 
  */
 package edu.cpp.cs.cs141.WarlocksOfTheBeach;
-
+import java.io.Serializable;
 /**
  * @author Cesar
  *
@@ -13,6 +13,11 @@ package edu.cpp.cs.cs141.WarlocksOfTheBeach;
  * Keeps track of Bullets, Lives, Invincibility, and Radar.
  */
 public class Player extends MovingObject {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -424383935120586870L;
+
 	// How many bullets the player has.
 	private int pBullets;
 
@@ -25,15 +30,13 @@ public class Player extends MovingObject {
 	// Whether or not the player had radar capabilities.
 	private boolean pRadar;
 
-	private int pPosition;
-	// Constructor for new Player instance.
 	public Player() {
 		super();
 		pBullets = 1;
 		pLives = 3;
 		pInvincibility = 0;
 		pRadar = false;
-		pPosition = 0;
+		pPosition = 72;
 	}
 
 	//Check if the player currently has invincibility regardless of turns left.
@@ -46,6 +49,11 @@ public class Player extends MovingObject {
 		}
 	}
 
+	public int mMove(int tD){
+		if (pInvincibility > 0)
+			pInvincibility--;
+		return super.mMove(tD);
+	}
 	// Set invincibility from a saved game
 	public void mSetInvincibility(int tInvincibility) {
 		pInvincibility = tInvincibility;
@@ -62,8 +70,8 @@ public class Player extends MovingObject {
 	}
 	
 	// Set radar from a saved game.
-	public void mSetRadar(boolean tRadar) {
-		pRadar = tRadar;
+	public void mSetRadar() {
+		pRadar = true;
 	}
 	
 	// Called by the game engine every turn to count down the turns of invincibility left.
@@ -73,17 +81,17 @@ public class Player extends MovingObject {
 
 	// Takes away one life from the player.
 	public void mDeath() {
+		if (pInvincibility > 0)
 		pLives --;
+		pPosition = 0;
 	}
 
+	public void mReload(){
+		pBullets++;
+	}
 	// Return the number of bullets the player has left.
 	public int mGetBullets() {
 		return pBullets;
-	}
-
-	// Return how many turns of invincibility the player has left.
-	public int mGetInvincibility() {
-		return pInvincibility;
 	}
 
 	// Return the number of lives the player has left.

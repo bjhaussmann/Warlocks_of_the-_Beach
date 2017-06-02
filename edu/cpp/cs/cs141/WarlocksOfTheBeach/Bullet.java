@@ -2,7 +2,7 @@ package edu.cpp.cs.cs141.WarlocksOfTheBeach;
 /**
  * 
  */
-
+import java.io.Serializable;
 /**
  * @author bjhau
  *
@@ -14,5 +14,10 @@ package edu.cpp.cs.cs141.WarlocksOfTheBeach;
  *
  */
 public class Bullet extends GameSpace {
+
+	/**
+	 * 
+	 */
+
 
 }
