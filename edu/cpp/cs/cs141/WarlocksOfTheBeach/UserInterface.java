@@ -195,6 +195,8 @@ public class UserInterface {
 					System.out.print("P");
 				else if (tRadar == true && pGameBoard[i][j].getClass().equals(BriefCase.class))
 					System.out.print("B");
+				else if (pGameBoard[i][j].getClass().equals(Room.class) || pGameBoard[i][j].getClass().equals(BriefCase.class)) 
+					System.out.print("r");
 				else
 					System.out.print("*");
 				System.out.print("]");
@@ -298,7 +300,7 @@ public class UserInterface {
 					else if (tGB[i][j].getClass().equals(Invicibility.class))
 						System.out.print("I");
 				} else if (tGB[i][j].getClass().equals(Room.class) || tGB[i][j].getClass().equals(BriefCase.class)) 
-						System.out.println("r");
+						System.out.print("r");
 				else
 					System.out.print("*");
 				System.out.print("]");
