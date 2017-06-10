@@ -50,7 +50,7 @@ public class DocumenControl {
 	
 	
 	
-	public void mSave(GameSpace tGS[][], Player tPC, Ninja tNJ[], String tFileOut) {
+	public void mSave(GameSpace tGS[][], Player tPC, Ninja tNJ[], String tFileOut) { //Takes in the various objects that make up the game state and saves them, most likely as egyption hieroglyphics
 		try {
 			FileOutputStream fileOut = new FileOutputStream(tFileOut + ".dat");
 			ObjectOutputStream out = new ObjectOutputStream(fileOut);
@@ -75,7 +75,9 @@ public class DocumenControl {
 
 	@SuppressWarnings("unchecked")
 
-	public GameEngine mOpenDoc(String tFileIn)  {
+	public GameEngine mOpenDoc(String tFileIn)  { //Pulls in the information from the file and then passes it to the game engine, on short notice, 
+		//the easiest way to do this was by making a new instance of GameEngine and using it as a carrier to pass the information along
+		//this is not the most efficient way however and with more time would be handled differently
 	 GameEngine GE;
 	 GameSpace tGS[][];
 	 Player tPC;
@@ -98,7 +100,7 @@ public class DocumenControl {
 		  
 	}
 
-	public void mSearchFile() {
+	public void mSearchFile() { //an unimplimented method for listing the files saved previously for the game.
 
 		File file = new File(
 				"/Users//git/Warlocks_of_the_Beach/edu/cpp/cs/cs141/WarlocksOfTheBeach");

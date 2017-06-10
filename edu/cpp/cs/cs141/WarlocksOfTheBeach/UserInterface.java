@@ -1,32 +1,28 @@
 package edu.cpp.cs.cs141.WarlocksOfTheBeach;
 
-import java.io.Serializable;
+
 import java.util.Scanner;
 
 public class UserInterface {
 
 	/**
-	 * 
+	 * This class handles getting information from the user as well as relaying it basck to the user
 	 */
-	private static final long serialVersionUID = -5883456823542350470L;
-	/**
-	 * 
-	 */
-
+	
 	private Scanner pKeyboard;
 
 	public UserInterface() {
 		pKeyboard = new Scanner(System.in);
 	}
 
-	public static UserInterface mCreateInterface(int tSelection) {
+	public static UserInterface mCreateInterface(int tSelection) { //Factor method that can be extended to support a GUI, the GUI was never developed however
 		if (tSelection == 0)
 			return new GUI();
 		else
 			return new UserInterface();
 	}
 
-	public void mPrintDebugBoard(GameSpace[][] tGB, int tPlayer, int tNinja[]) {
+	public void mPrintDebugBoard(GameSpace[][] tGB, int tPlayer, int tNinja[]) { //This method takes in the gameboard array as well as the positions of the ninja's and the player to print out a completly revealed game board
 		System.out.println(tPlayer);
 		for (int i = 0; i < 9; i++) {
 			for (int j = 0; j < 9; j++) {
@@ -81,12 +77,12 @@ public class UserInterface {
 		return tOutput;
 	}
 
-	public void mPauseScript() {
+	public void mPauseScript() { //automatically inserts a "press enter to continue"
 		System.out.println("Press enter to continue.");
 		pKeyboard.nextLine();
 	}
 
-	public int mTurnSelect() {
+	public int mTurnSelect() { //the player decides what they want to do on their turn using this method
 		int tSelection;
 
 		do {
@@ -112,7 +108,7 @@ public class UserInterface {
 		return tSelection;
 	}
 
-	public int mShoot() {
+	public int mShoot() { //handles picking a direction to shoot in
 		boolean tVI = false;
 		int tOutput = -1;
 		do {
@@ -131,11 +127,11 @@ public class UserInterface {
 				tOutput = 3;
 				tVI = true;
 			}
-		} while (tVI = false);
+		} while (tVI == false);
 		return tOutput;
 	}
 
-	public int mPMove() {
+	public int mPMove() { //handles getting a direction to move in
 		boolean tVI = false;
 		int tOutput = -1;
 		do {
@@ -183,7 +179,7 @@ public class UserInterface {
 
 	}
 
-	public void mPrintBoard(GameSpace[][] pGameBoard, int tPlayer, boolean tRadar) {
+	public void mPrintBoard(GameSpace[][] pGameBoard, int tPlayer, boolean tRadar) { //this method prints the default gameboard with the fog of war
 		System.out.println("PrintGameBoard start");
 		System.out.println(tPlayer);
 		for (int i = 0; i < 9; i++) {
@@ -208,7 +204,7 @@ public class UserInterface {
 
 	}
 
-	public void mPrintBoard(GameSpace[][] tGB, int tPlayer, boolean tRadar, int tDirection, int tNinja[]) {
+	public void mPrintBoard(GameSpace[][] tGB, int tPlayer, boolean tRadar, int tDirection, int tNinja[]) { //This overloaded method prints the gameboard with the fog of war but up to two spaces revealed by the look function
 		System.out.println(tPlayer);
 		int tSP1 = tPlayer;
 		int tSP2 = tPlayer;
@@ -313,7 +309,7 @@ public class UserInterface {
 	/**
 	 * @return
 	 */
-	public int mGetLookD() {
+	public int mGetLookD() { //This method gets the look direction from teh player
 		boolean tVI = false;
 		int tOutput = -1;
 		do {
@@ -340,7 +336,7 @@ public class UserInterface {
 	/**
 	 * @return
 	 */
-	public String mSave() {
+	public String mSave() { //This method asks the player for a file name to save as
 		System.out.println("Please enter a name for the save file.");
 		String tFileName = pKeyboard.nextLine();
 		return tFileName;
@@ -349,7 +345,7 @@ public class UserInterface {
 	/**
 	 * @return
 	 */
-	public String mLoad() {
+	public String mLoad() { //This method asks the player for the name of the file they would like to load
 		System.out.println("What file would you like to load?");
 		String tOP = pKeyboard.nextLine();
 		return tOP;
@@ -366,7 +362,7 @@ public class UserInterface {
 	/**
 	 * 
 	 */
-	public void mIntro() {
+	public void mIntro() { //Just the intro for the game 
 		System.out.println(
 				"          _______  _______  _        _______  _______  _        _______    _______  _______   _________          _______    ______   _______  _______  _______          ");
 		System.out.println(

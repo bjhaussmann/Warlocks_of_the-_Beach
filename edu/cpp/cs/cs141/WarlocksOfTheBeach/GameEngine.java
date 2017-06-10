@@ -1,24 +1,22 @@
 package edu.cpp.cs.cs141.WarlocksOfTheBeach;
 
-import java.io.Serializable;
+
 import java.util.Random;
 
 public class GameEngine {
 	
 	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 8510443614866628028L;
-	/**
-	 * 
+	 * The gameEngine class is were the magic happens
+	 * This class is the brains of the operation and processes all of the real changes in the state of the game
 	 */
 	
+	
 	private UserInterface UI;
-	private GameSpace pGameBoard[][];
-	private Player pc;
-	private Ninja npc[];
+	private GameSpace pGameBoard[][]; //This array is the 'playing field' of the game
+	private Player pc; //The character the player controls
+	private Ninja npc[]; //The six ninja's
 	private DocumenControl DocCntrl;
-	private boolean	pDebug;
+	private boolean	pDebug; //This keeps track of wether debug mode is on of off
 	
 	public GameEngine() {
 		UI = UserInterface.mCreateInterface(1);
@@ -26,7 +24,7 @@ public class GameEngine {
 		pDebug = false;
 	}
 	
-	public GameEngine(GameSpace[][] tGS, Player tPC, Ninja[] tNPC)
+	public GameEngine(GameSpace[][] tGS, Player tPC, Ninja[] tNPC) //This overloaded construct is for the data transfer process during file loading
 	{
 		UI = UserInterface.mCreateInterface(1);
 		DocCntrl = new DocumenControl();
@@ -36,19 +34,20 @@ public class GameEngine {
 		npc = tNPC;
 	}
 
-	public void mStartDebug() {
+	public void mStartDebug() { //This is a sudo mStartGame() that was used for testing features of the game before mStartGame() was able to fully run,
+		//Once this method had the same contents as mStartGame() we knew we were close to the finish line
 		System.out.println("Debug Start");
 		mStartGame();
 		System.out.println("Debug end");
 	}
 
-	public void mStartGame() {
+	public void mStartGame() { //Main Calls this method
 		UI.mIntro();
 		mSetGame();
 		mCoreGameLoop();
 	}
 
-	public void mSetGame() {
+	public void mSetGame() { //Determines wether a new game or a load file should occur and branches accordingly
 		boolean tSuccess = false;
 		do {
 			if (UI.mNew() == true) {
@@ -67,7 +66,7 @@ public class GameEngine {
 		} while (tSuccess = false);
 	}
 
-	public GameSpace[][] mGenerateGame() {
+	public GameSpace[][] mGenerateGame() { //This generates a new game board as well as the player character and the six ninja's placed randomly
 		System.out.println("mGenerateGame start");
 		pc = new Player();
 		npc = new Ninja[6];
@@ -165,7 +164,7 @@ public class GameEngine {
 
 	
 
-	public void mCoreGameLoop() {
+	public void mCoreGameLoop() {//This method repeats until the player quits or one of two end conditions are met
 		boolean tEnd = false;
 
 		do {
@@ -185,7 +184,7 @@ public class GameEngine {
 	/**
 	 * 
 	 */
-	private void mCheckPowerUps() {
+	private void mCheckPowerUps() { //Checks the players feet for smashed radio equipment and other usele... Useful equipment!
 		if (pGameBoard[pc.mGetPosition()/9][pc.mGetPosition()%9].getClass().equals(Radar.class))
 		{
 			pc.mSetRadar();
@@ -203,11 +202,7 @@ public class GameEngine {
 		}
 	}
 
-	/**
-	 * @return
-	 */
-
-	private boolean mStartPhase() {
+	private boolean mStartPhase() {//THis is the part of the turn that the player has control over, it branches into the many different things they can do before the ninja's get a stab at it
 		boolean tEnd = false;
 		int tMove = 1;
 		int tLook = 1;
@@ -241,11 +236,11 @@ public class GameEngine {
 		return tEnd;
 	}
 
-	public void mSave() {
+	public void mSave() {// Sends the data to the documentControl class to make a neat little recording on the hard drive
 		DocCntrl.mSave(pGameBoard, pc, npc, UI.mSave());
 	}
 
-	public void mLook() {
+	public void mLook() {// interacts with the UI to let the player look at walls, and other useful things
 		int tNinja[] = new int[6];
 		for (int i = 0; i<6; i++)
 		{
@@ -254,7 +249,7 @@ public class GameEngine {
 		UI.mPrintBoard(pGameBoard, pc.mGetPosition(), pc.mIsRadar(), UI.mGetLookD(), tNinja);
 	}
 
-	public int mLoad()
+	public int mLoad() //Interacts with the documentcontrol class to pull data out of strange hieroglyphic symbols on the magnetic disk 
 	{
 		GameEngine GE;
 		GE = DocCntrl.mOpenDoc(UI.mLoad());
@@ -269,7 +264,7 @@ public class GameEngine {
 			this.npc = GE.npc;
 			return 0;
 	}
-	public void mShoot() {
+	public void mShoot() { //Takes care of the shooting of bullets, treats them like an actual bullet by simulating their travel from space to space.
 		if (pc.mGetBullets() > 0) {
 			pc.mShoot();
 			int tDirection = UI.mShoot();
@@ -342,7 +337,7 @@ public class GameEngine {
 
 	}
 
-	public void mPMove() {
+	public void mPMove() { //Moves the character
 		boolean tVM = false;
 
 		do {
@@ -356,7 +351,7 @@ public class GameEngine {
 		} while (tVM == false);
 	}
 
-	public void mNMove() {
+	public void mNMove() { //moves the ninja's
 
 		for (int i = 0; i < 6; i++) {
 			if (npc[i].mComputeKill(pc.mGetPosition()) == 1)
@@ -366,7 +361,7 @@ public class GameEngine {
 		}
 	}
 
-	public boolean mCheckGameState() {
+	public boolean mCheckGameState() { //checks to see whether the player has lost yet
 
 		if (pc.mGetLives() <= 0) {
 			UI.mGameLoss();
@@ -378,11 +373,11 @@ public class GameEngine {
 			return false;
 	}
 
-	public int mRandomNum(int tUpperLimit) {
+	public int mRandomNum(int tUpperLimit) { //a shortcut method for getting random numbers, I don't believe it currently has a function but was very useful during testing
 		return (new Random().nextInt(tUpperLimit));
 	}
 	
-	public void mPrintBoard()
+	public void mPrintBoard() //Decides which printboard method to call from the UI and passes the appropriate information
 	{
 		int tNP[] = new int[6];
 		for (int i = 0; i < 6; i++)
