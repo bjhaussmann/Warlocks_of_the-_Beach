@@ -12,7 +12,7 @@ import java.io.Serializable;
  *
  */
 
-public class MovingObject implements Serializable {
+public abstract class MovingObject implements Serializable {
 
 	private static final long serialVersionUID = 5730821710669938689L;
 	/**

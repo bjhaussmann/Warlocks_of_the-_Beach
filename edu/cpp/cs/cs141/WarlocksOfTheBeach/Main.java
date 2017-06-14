@@ -16,7 +16,7 @@ public class Main {
 		// TODO Auto-generated method stub
 		System.out.println("Started");
 		GameEngine GE = new GameEngine();	
-		GE.mStartDebug();
+		GE.mStartGame();
 		
 	}
 

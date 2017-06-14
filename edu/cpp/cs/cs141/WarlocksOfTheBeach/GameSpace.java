@@ -11,7 +11,7 @@ import java.io.Serializable;
  *         class for which to make objects on the game board under these
  *         circumstances.
  */
-public class GameSpace implements Serializable {
+public abstract class GameSpace implements Serializable {
 
 	/**
 	 * This will later us help us save the object in document control
